@@ -108,7 +108,7 @@ jobs:
           if git fetch origin gh-pages:gh-pages 2>/dev/null; then
             git worktree add gh-pages-wt gh-pages
           else
-            git worktree add --orphan gh-pages gh-pages-wt
+            git worktree add --orphan -b gh-pages gh-pages-wt
           fi
 
           cp scraper/out/rozvrh.json gh-pages-wt/rozvrh.json

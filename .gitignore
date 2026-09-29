@@ -1,0 +1,4 @@
+# Pracovní strom pro publikaci do gh-pages (viz scripts/run-scraper-and-publish.ps1)
+/gh-pages-wt/
+# Log z lokálně naplánovaného běhu scraperu
+/scraper/run-log.txt
