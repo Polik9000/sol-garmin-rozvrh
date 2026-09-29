@@ -5,7 +5,7 @@ using Toybox.Time as Time;
 using Toybox.Time.Gregorian as Gregorian;
 
 // UPRAV na skutečný endpoint z fáze 2:
-const ROZVRH_URL = "https://TVOJE-JMENO.github.io/TVOJE-REPO/rozvrh.json";
+const ROZVRH_URL = "https://polik9000.github.io/sol-garmin-rozvrh/rozvrh.json";
 // ŠOL se scrapuje po 30 min (fáze 2) - častější dotazy jen plýtvají baterií a daty.
 const CACHE_TTL_SEC = 600;
 
