@@ -64,10 +64,19 @@ public sealed class SolSession : IAsyncDisposable
     public async Task LoginAsync(string user, string pass)
     {
         await GoToAsync(LoginUrl);
-        await DismissOverlaysAsync(); // cookie lišta může překrývat tlačítko; klik by pak čekal na actionability do timeoutu
+        Log.Info("DIAG: login stránka načtena, řeším překryvy...");
+        var dismissedSw = Stopwatch.StartNew();
+        var dismissed = await DismissOverlaysAsync(); // cookie lišta může překrývat tlačítko; klik by pak čekal na actionability do timeoutu
+        Log.Info($"DIAG: DismissOverlaysAsync za {dismissedSw.ElapsedMilliseconds} ms, zavřel něco={dismissed}");
+        // DOČASNÉ: ukázat přesný stav stránky před vyplněním formuláře (odstranit po odladění CI vs. lokál).
+        await DumpAsync("login-page-state");
 
+        var fillSw = Stopwatch.StartNew();
         await _page.Locator("#JmenoUzivatele").FillAsync(user);
+        Log.Info($"DIAG: jméno vyplněno za {fillSw.ElapsedMilliseconds} ms");
+        fillSw.Restart();
         await _page.Locator("#HesloUzivatele").FillAsync(pass);
+        Log.Info($"DIAG: heslo vyplněno za {fillSw.ElapsedMilliseconds} ms");
 
         // Baseline: .tm-error je skrytá přes custom.css neznámým způsobem. Pokud ji Playwright vidí jako viditelnou
         // už před odesláním, nelze na ni spoléhat a rozhoduje jen URL + timeout.
