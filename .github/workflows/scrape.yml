@@ -1,10 +1,12 @@
 name: Scrape ŠOL rozvrh
 
 on:
-  schedule:
-    # UTC 5-13 pokrývá lokální 7:00-14:00 pro CET i CEST s rezervou;
-    # přesný filtr dělá job "gate" podle skutečného pražského času.
-    - cron: '0,30 5-13 * * 1-5'
+  # cron VYPNUT: ŠOL je za BotStopper anti-bot ochranou, která blokuje headless
+  # Chromium bez ohledu na IP - GitHub-hostovaný runner proto nikdy neuspěje
+  # (viz README "Klíčová rozhodnutí"). Ostrý provoz běží lokálně přes
+  # scripts/run-scraper-and-publish.ps1 + Windows Task Scheduler s wake timerem.
+  # schedule:
+  #   - cron: '0,30 5-13 * * 1-5'
   workflow_dispatch:
     inputs:
       force:
