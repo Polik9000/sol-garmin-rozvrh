@@ -1,0 +1,35 @@
+﻿2026-09-29T17:44:41.9892620Z Current runner version: '2.337.0'
+2026-09-29T17:44:41.9917496Z ##[group]Runner Image Provisioner
+2026-09-29T17:44:41.9918500Z Hosted Compute Agent
+2026-09-29T17:44:41.9919092Z Version: 20260828.587
+2026-09-29T17:44:41.9919717Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-29T17:44:41.9920487Z Build Date: 2026-08-28T16:44:25Z
+2026-09-29T17:44:41.9921191Z Worker ID: {226340cc-ba37-464f-9797-ca9e7949149e}
+2026-09-29T17:44:41.9921901Z Azure Region: centralus
+2026-09-29T17:44:41.9922485Z ##[endgroup]
+2026-09-29T17:44:41.9923872Z ##[group]Operating System
+2026-09-29T17:44:41.9924562Z Ubuntu
+2026-09-29T17:44:41.9925148Z 24.04.5
+2026-09-29T17:44:41.9925750Z LTS
+2026-09-29T17:44:41.9926308Z ##[endgroup]
+2026-09-29T17:44:41.9926824Z ##[group]Runner Image
+2026-09-29T17:44:41.9928000Z Image: ubuntu-24.04
+2026-09-29T17:44:41.9928604Z Version: 20260920.314.1
+2026-09-29T17:44:41.9929688Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-29T17:44:41.9931286Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
+2026-09-29T17:44:41.9932288Z ##[endgroup]
+2026-09-29T17:44:41.9933467Z ##[group]GITHUB_TOKEN Permissions
+2026-09-29T17:44:41.9935723Z Actions: write
+2026-09-29T17:44:41.9936316Z Contents: write
+2026-09-29T17:44:41.9936950Z Metadata: read
+2026-09-29T17:44:41.9937756Z ##[endgroup]
+2026-09-29T17:44:41.9939819Z Secret source: Actions
+2026-09-29T17:44:41.9940746Z Cache mode: write
+2026-09-29T17:44:41.9941446Z Prepare workflow directory
+2026-09-29T17:44:42.0299678Z Prepare all required actions
+2026-09-29T17:44:42.0348217Z Getting action download info
+2026-09-29T17:44:42.3382084Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-09-29T17:44:42.4300175Z Download action repository 'actions/setup-dotnet@v6' (SHA:a98b56852c35b8e3190ac28c8c2271da59106c68)
+2026-09-29T17:44:43.0213619Z Download action repository 'actions/cache@v6' (SHA:55cc8345863c7cc4c66a329aec7e433d2d1c52a9)
+2026-09-29T17:44:43.1964929Z Download action repository 'actions/upload-artifact@v7' (SHA:043fb46d1a93c77aae656e7c1c64a875d1fc6a0a)
+2026-09-29T17:44:43.3951434Z Complete job name: scrape

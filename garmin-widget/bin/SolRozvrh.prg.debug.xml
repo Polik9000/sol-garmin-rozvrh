@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<debugInfo>
+    <manifest filename="C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\manifest.xml"/>
+    <pcToLineNum>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhApp.mc" id="1" lineNum="4" parent="globals/SolRozvrhApp" pc="268435460" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhDelegate.mc" id="2" lineNum="3" parent="globals/SolRozvrhDelegate" pc="268435479" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\bin\\gen\\006-B3110-00\\source\\Rez.mcgen" id="3" lineNum="7" parent="globals/Rez" pc="268435498" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="4" lineNum="7" parent="globals/SolRozvrhView" pc="268435522" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhApp.mc" id="5" lineNum="10" parent="globals/SolRozvrhApp" pc="268435541" symbol="getInitialView"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhApp.mc" id="5" lineNum="11" parent="globals/SolRozvrhApp" pc="268435545" symbol="getInitialView"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhApp.mc" id="5" lineNum="12" parent="globals/SolRozvrhApp" pc="268435569" symbol="getInitialView"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhApp.mc" id="6" lineNum="6" parent="globals/SolRozvrhApp" pc="268435618" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhApp.mc" id="6" lineNum="7" parent="globals/SolRozvrhApp" pc="268435620" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhDelegate.mc" id="7" lineNum="7" parent="globals/SolRozvrhDelegate" pc="268435639" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhDelegate.mc" id="7" lineNum="8" parent="globals/SolRozvrhDelegate" pc="268435641" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhDelegate.mc" id="7" lineNum="9" parent="globals/SolRozvrhDelegate" pc="268435659" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhDelegate.mc" id="8" lineNum="13" parent="globals/SolRozvrhDelegate" pc="268435670" symbol="onSelect"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhDelegate.mc" id="8" lineNum="14" parent="globals/SolRozvrhDelegate" pc="268435672" symbol="onSelect"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhDelegate.mc" id="8" lineNum="15" parent="globals/SolRozvrhDelegate" pc="268435690" symbol="onSelect"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="9" lineNum="86" parent="globals/SolRozvrhView" pc="268435693" symbol="firstRunMessage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="9" lineNum="87" parent="globals/SolRozvrhView" pc="268435697" symbol="firstRunMessage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="9" lineNum="88" parent="globals/SolRozvrhView" pc="268435716" symbol="firstRunMessage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="9" lineNum="89" parent="globals/SolRozvrhView" pc="268435735" symbol="firstRunMessage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="9" lineNum="91" parent="globals/SolRozvrhView" pc="268435744" symbol="firstRunMessage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="9" lineNum="92" parent="globals/SolRozvrhView" pc="268435763" symbol="firstRunMessage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="9" lineNum="94" parent="globals/SolRozvrhView" pc="268435772" symbol="firstRunMessage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="10" lineNum="17" parent="globals/SolRozvrhView" pc="268435778" symbol="onShow"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="10" lineNum="20" parent="globals/SolRozvrhView" pc="268435780" symbol="onShow"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="10" lineNum="21" parent="globals/SolRozvrhView" pc="268435824" symbol="onShow"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="10" lineNum="23" parent="globals/SolRozvrhView" pc="268435845" symbol="onShow"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="10" lineNum="24" parent="globals/SolRozvrhView" pc="268435879" symbol="onShow"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="99" parent="globals/SolRozvrhView" pc="268435921" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="100" parent="globals/SolRozvrhView" pc="268435925" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="101" parent="globals/SolRozvrhView" pc="268435944" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="102" parent="globals/SolRozvrhView" pc="268435963" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="103" parent="globals/SolRozvrhView" pc="268435970" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="104" parent="globals/SolRozvrhView" pc="268435977" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="105" parent="globals/SolRozvrhView" pc="268436012" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="106" parent="globals/SolRozvrhView" pc="268436023" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="108" parent="globals/SolRozvrhView" pc="268436033" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="111" parent="globals/SolRozvrhView" pc="268436061" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="112" parent="globals/SolRozvrhView" pc="268436080" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="112" parent="globals/SolRozvrhView" pc="268436087" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="113" parent="globals/SolRozvrhView" pc="268436099" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="115" parent="globals/SolRozvrhView" pc="268436108" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="116" parent="globals/SolRozvrhView" pc="268436127" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="116" parent="globals/SolRozvrhView" pc="268436134" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="117" parent="globals/SolRozvrhView" pc="268436146" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="119" parent="globals/SolRozvrhView" pc="268436155" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="120" parent="globals/SolRozvrhView" pc="268436161" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="11" lineNum="122" parent="globals/SolRozvrhView" pc="268436170" symbol="syncStatusText"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="12" lineNum="12" parent="globals/SolRozvrhView" pc="268436179" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="12" lineNum="13" parent="globals/SolRozvrhView" pc="268436181" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="12" lineNum="14" parent="globals/SolRozvrhView" pc="268436199" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="13" lineNum="27" parent="globals/SolRozvrhView" pc="268436230" symbol="onHide"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="13" lineNum="28" parent="globals/SolRozvrhView" pc="268436232" symbol="onHide"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="13" lineNum="29" parent="globals/SolRozvrhView" pc="268436245" symbol="onHide"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="13" lineNum="30" parent="globals/SolRozvrhView" pc="268436263" symbol="onHide"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="14" lineNum="125" parent="globals/SolRozvrhView" pc="268436276" symbol="minutesToHHMM"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="14" lineNum="126" parent="globals/SolRozvrhView" pc="268436280" symbol="minutesToHHMM"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="14" lineNum="127" parent="globals/SolRozvrhView" pc="268436290" symbol="minutesToHHMM"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="14" lineNum="128" parent="globals/SolRozvrhView" pc="268436300" symbol="minutesToHHMM"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="14" lineNum="129" parent="globals/SolRozvrhView" pc="268436313" symbol="minutesToHHMM"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="14" lineNum="129" parent="globals/SolRozvrhView" pc="268436324" symbol="minutesToHHMM"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="14" lineNum="130" parent="globals/SolRozvrhView" pc="268436337" symbol="minutesToHHMM"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="14" lineNum="131" parent="globals/SolRozvrhView" pc="268436350" symbol="minutesToHHMM"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="14" lineNum="131" parent="globals/SolRozvrhView" pc="268436361" symbol="minutesToHHMM"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="14" lineNum="132" parent="globals/SolRozvrhView" pc="268436374" symbol="minutesToHHMM"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="42" parent="globals/SolRozvrhView" pc="268436386" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="43" parent="globals/SolRozvrhView" pc="268436390" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="44" parent="globals/SolRozvrhView" pc="268436412" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="46" parent="globals/SolRozvrhView" pc="268436424" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="47" parent="globals/SolRozvrhView" pc="268436443" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="49" parent="globals/SolRozvrhView" pc="268436462" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="50" parent="globals/SolRozvrhView" pc="268436488" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="52" parent="globals/SolRozvrhView" pc="268436525" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="55" parent="globals/SolRozvrhView" pc="268436529" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="56" parent="globals/SolRozvrhView" pc="268436548" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="57" parent="globals/SolRozvrhView" pc="268436558" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="59" parent="globals/SolRozvrhView" pc="268436568" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="60" parent="globals/SolRozvrhView" pc="268436605" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="61" parent="globals/SolRozvrhView" pc="268436616" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="63" parent="globals/SolRozvrhView" pc="268436656" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="65" parent="globals/SolRozvrhView" pc="268436733" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="70" parent="globals/SolRozvrhView" pc="268436832" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="72" parent="globals/SolRozvrhView" pc="268436876" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="73" parent="globals/SolRozvrhView" pc="268436913" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="74" parent="globals/SolRozvrhView" pc="268436924" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="76" parent="globals/SolRozvrhView" pc="268436964" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="78" parent="globals/SolRozvrhView" pc="268437041" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="15" lineNum="82" parent="globals/SolRozvrhView" pc="268437103" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="16" lineNum="38" parent="globals/SolRozvrhView" pc="268437156" symbol="forceRefresh"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="16" lineNum="39" parent="globals/SolRozvrhView" pc="268437158" symbol="forceRefresh"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="17" lineNum="34" parent="globals/SolRozvrhView" pc="268437177" symbol="onTimer"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\SolRozvrhView.mc" id="17" lineNum="35" parent="globals/SolRozvrhView" pc="268437179" symbol="onTimer"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="18" lineNum="146" parent="globals/LessonStore" pc="268437196" symbol="nameAt"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="18" lineNum="146" parent="globals/LessonStore" pc="268437198" symbol="nameAt"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="90" parent="globals/LessonStore" pc="268437210" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="91" parent="globals/LessonStore" pc="268437214" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="92" parent="globals/LessonStore" pc="268437227" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="93" parent="globals/LessonStore" pc="268437232" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="94" parent="globals/LessonStore" pc="268437237" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="95" parent="globals/LessonStore" pc="268437242" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="96" parent="globals/LessonStore" pc="268437247" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="97" parent="globals/LessonStore" pc="268437252" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="98" parent="globals/LessonStore" pc="268437267" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="99" parent="globals/LessonStore" pc="268437274" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="100" parent="globals/LessonStore" pc="268437287" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="101" parent="globals/LessonStore" pc="268437300" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="102" parent="globals/LessonStore" pc="268437313" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="103" parent="globals/LessonStore" pc="268437337" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="105" parent="globals/LessonStore" pc="268437374" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="106" parent="globals/LessonStore" pc="268437384" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="107" parent="globals/LessonStore" pc="268437394" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="108" parent="globals/LessonStore" pc="268437404" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="19" lineNum="109" parent="globals/LessonStore" pc="268437414" symbol="compact"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="118" parent="globals/LessonStore" pc="268437425" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="119" parent="globals/LessonStore" pc="268437429" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="120" parent="globals/LessonStore" pc="268437466" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="121" parent="globals/LessonStore" pc="268437506" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="122" parent="globals/LessonStore" pc="268437531" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="123" parent="globals/LessonStore" pc="268437538" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="124" parent="globals/LessonStore" pc="268437545" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="125" parent="globals/LessonStore" pc="268437564" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="126" parent="globals/LessonStore" pc="268437579" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="127" parent="globals/LessonStore" pc="268437596" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="129" parent="globals/LessonStore" pc="268437602" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="130" parent="globals/LessonStore" pc="268437619" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="131" parent="globals/LessonStore" pc="268437653" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="133" parent="globals/LessonStore" pc="268437660" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="134" parent="globals/LessonStore" pc="268437688" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="136" parent="globals/LessonStore" pc="268437698" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="137" parent="globals/LessonStore" pc="268437709" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="20" lineNum="140" parent="globals/LessonStore" pc="268437729" symbol="currentAndNext"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="21" lineNum="59" parent="globals/LessonStore" pc="268437756" symbol="needsRefresh"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="21" lineNum="60" parent="globals/LessonStore" pc="268437758" symbol="needsRefresh"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="21" lineNum="61" parent="globals/LessonStore" pc="268437770" symbol="needsRefresh"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="21" lineNum="63" parent="globals/LessonStore" pc="268437776" symbol="needsRefresh"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="22" lineNum="49" parent="globals/LessonStore" pc="268437816" symbol="saveToStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="22" lineNum="51" parent="globals/LessonStore" pc="268437818" symbol="saveToStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="22" lineNum="52" parent="globals/LessonStore" pc="268437839" symbol="saveToStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="22" lineNum="55" parent="globals/LessonStore" pc="268437946" symbol="saveToStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="22" lineNum="56" parent="globals/LessonStore" pc="268437967" symbol="saveToStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="23" lineNum="74" parent="globals/LessonStore" pc="268437997" symbol="onReceive"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="23" lineNum="75" parent="globals/LessonStore" pc="268437999" symbol="onReceive"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="23" lineNum="76" parent="globals/LessonStore" pc="268438017" symbol="onReceive"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="23" lineNum="77" parent="globals/LessonStore" pc="268438031" symbol="onReceive"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="23" lineNum="78" parent="globals/LessonStore" pc="268438063" symbol="onReceive"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="23" lineNum="79" parent="globals/LessonStore" pc="268438076" symbol="onReceive"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="23" lineNum="80" parent="globals/LessonStore" pc="268438091" symbol="onReceive"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="23" lineNum="81" parent="globals/LessonStore" pc="268438102" symbol="onReceive"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="23" lineNum="83" parent="globals/LessonStore" pc="268438118" symbol="onReceive"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="23" lineNum="85" parent="globals/LessonStore" pc="268438131" symbol="onReceive"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="24" lineNum="149" parent="globals/LessonStore" pc="268438148" symbol="endAt"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="24" lineNum="149" parent="globals/LessonStore" pc="268438150" symbol="endAt"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="25" lineNum="143" parent="globals/LessonStore" pc="268438162" symbol="entryCount"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="25" lineNum="143" parent="globals/LessonStore" pc="268438164" symbol="entryCount"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="26" lineNum="147" parent="globals/LessonStore" pc="268438182" symbol="roomAt"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="26" lineNum="147" parent="globals/LessonStore" pc="268438184" symbol="roomAt"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="27" lineNum="66" parent="globals/LessonStore" pc="268438196" symbol="fetch"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="27" lineNum="67" parent="globals/LessonStore" pc="268438200" symbol="fetch"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="27" lineNum="71" parent="globals/LessonStore" pc="268438234" symbol="fetch"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="28" lineNum="22" parent="globals/LessonStore" pc="268438275" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="28" lineNum="23" parent="globals/LessonStore" pc="268438277" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="28" lineNum="24" parent="globals/LessonStore" pc="268438291" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="28" lineNum="25" parent="globals/LessonStore" pc="268438305" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="28" lineNum="26" parent="globals/LessonStore" pc="268438319" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="28" lineNum="27" parent="globals/LessonStore" pc="268438333" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="28" lineNum="28" parent="globals/LessonStore" pc="268438347" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="28" lineNum="29" parent="globals/LessonStore" pc="268438356" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="28" lineNum="30" parent="globals/LessonStore" pc="268438369" symbol="initialize"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="29" lineNum="33" parent="globals/LessonStore" pc="268438382" symbol="loadFromStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="29" lineNum="34" parent="globals/LessonStore" pc="268438386" symbol="loadFromStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="29" lineNum="35" parent="globals/LessonStore" pc="268438408" symbol="loadFromStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="29" lineNum="36" parent="globals/LessonStore" pc="268438415" symbol="loadFromStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="29" lineNum="37" parent="globals/LessonStore" pc="268438431" symbol="loadFromStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="29" lineNum="38" parent="globals/LessonStore" pc="268438447" symbol="loadFromStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="29" lineNum="39" parent="globals/LessonStore" pc="268438463" symbol="loadFromStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="29" lineNum="40" parent="globals/LessonStore" pc="268438479" symbol="loadFromStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="29" lineNum="41" parent="globals/LessonStore" pc="268438495" symbol="loadFromStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="29" lineNum="43" parent="globals/LessonStore" pc="268438511" symbol="loadFromStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="29" lineNum="44" parent="globals/LessonStore" pc="268438533" symbol="loadFromStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="29" lineNum="45" parent="globals/LessonStore" pc="268438540" symbol="loadFromStorage"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="30" lineNum="113" parent="globals/LessonStore" pc="268438554" symbol="parseTime"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="30" lineNum="114" parent="globals/LessonStore" pc="268438556" symbol="parseTime"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="31" lineNum="145" parent="globals/LessonStore" pc="268438624" symbol="lastFetch"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="31" lineNum="145" parent="globals/LessonStore" pc="268438626" symbol="lastFetch"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="32" lineNum="148" parent="globals/LessonStore" pc="268438635" symbol="startAt"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="32" lineNum="148" parent="globals/LessonStore" pc="268438637" symbol="startAt"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="33" lineNum="144" parent="globals/LessonStore" pc="268438649" symbol="status"/>
+        <entry filename="C:\\Users\\tobia\\Documents\\GitHub\\sol-garmin-rozvrh\\garmin-widget\\source\\LessonStore.mc" id="33" lineNum="144" parent="globals/LessonStore" pc="268438651" symbol="status"/>
+    </pcToLineNum>
+    <symbolTable>
+        <entry id="8388639" module="true" symbol="Graphics"/>
+        <entry id="8388632" method="true" symbol="&lt;init&gt;"/>
+        <entry id="38" method="true" symbol="status"/>
+        <entry field="true" id="10" symbol="_store"/>
+        <entry id="13" method="true" symbol="forceRefresh"/>
+        <entry id="28" method="true" symbol="fetch"/>
+        <entry id="31" method="true" symbol="nameAt"/>
+        <entry id="8388924" module="true" symbol="Gregorian"/>
+        <entry id="29" method="true" symbol="lastFetch"/>
+        <entry id="27" method="true" symbol="entryCount"/>
+        <entry field="true" id="8388611" module="true" symbol="Toybox"/>
+        <entry id="8388649" module="true" object="true" symbol="Test"/>
+        <entry id="12" method="true" symbol="firstRunMessage"/>
+        <entry field="true" id="40" symbol="AppName"/>
+        <entry id="4" module="true" symbol="globals/Rez/Strings"/>
+        <entry id="30" method="true" symbol="loadFromStorage"/>
+        <entry field="true" id="20" symbol="_names"/>
+        <entry id="16" method="true" symbol="syncStatusText"/>
+        <entry id="8388648" module="true" symbol="WatchUi"/>
+        <entry id="34" method="true" symbol="parseTime"/>
+        <entry id="2" module="true" symbol="globals/Rez"/>
+        <entry id="8389124" method="true" symbol="onUpdate"/>
+        <entry id="8388771" module="true" object="true" symbol="Drawables"/>
+        <entry field="true" id="18" symbol="_ends"/>
+        <entry field="true" id="11" symbol="_timer"/>
+        <entry id="26" method="true" symbol="endAt"/>
+        <entry id="3" module="true" symbol="globals/Rez/Drawables"/>
+        <entry id="8389844" symbol="responseType"/>
+        <entry field="true" id="17" symbol="_dates"/>
+        <entry id="25" method="true" symbol="currentAndNext"/>
+        <entry id="8388786" method="true" symbol="method"/>
+        <entry id="8389619" method="true" symbol="onSelect"/>
+        <entry id="8388645" module="true" symbol="Time"/>
+        <entry id="8388769" module="true" object="true" symbol="Rez"/>
+        <entry id="33" method="true" symbol="onReceive"/>
+        <entry field="true" id="23" symbol="_status"/>
+        <entry id="35" method="true" symbol="roomAt"/>
+        <entry id="8388640" module="true" symbol="Lang"/>
+        <entry id="24" method="true" symbol="compact"/>
+        <entry field="true" id="39" symbol="LauncherIcon"/>
+        <entry field="true" id="21" symbol="_rooms"/>
+        <entry id="8388610" symbol="statics"/>
+        <entry id="8389123" method="true" symbol="onShow"/>
+        <entry id="7" object="true" symbol="SolRozvrhDelegate"/>
+        <entry id="32" method="true" symbol="needsRefresh"/>
+        <entry id="8389350" module="true" symbol="globals"/>
+        <entry id="8388770" module="true" object="true" symbol="Strings"/>
+        <entry field="true" id="9" symbol="_view"/>
+        <entry id="8388702" method="true" symbol="initialize"/>
+        <entry id="8389280" method="true" symbol="getInitialView"/>
+        <entry id="8" object="true" symbol="SolRozvrhView"/>
+        <entry id="37" method="true" symbol="startAt"/>
+        <entry id="6" object="true" symbol="SolRozvrhApp"/>
+        <entry field="true" id="19" symbol="_lastFetch"/>
+        <entry id="8388646" module="true" object="true" symbol="Timer"/>
+        <entry id="14" method="true" symbol="minutesToHHMM"/>
+        <entry id="5" object="true" symbol="LessonStore"/>
+        <entry id="36" method="true" symbol="saveToStorage"/>
+        <entry id="8389125" method="true" symbol="onHide"/>
+        <entry id="15" method="true" symbol="onTimer"/>
+        <entry field="true" id="22" symbol="_starts"/>
+    </symbolTable>
+    <localVars>
+        <entry endPc="268435617" name="view" stackId="1" startPc="268435545"/>
+        <entry arg="true" endPc="268435669" name="view" stackId="1" startPc="268435639"/>
+        <entry endPc="268435777" name="status" stackId="1" startPc="268435697"/>
+        <entry endPc="268436178" name="status" stackId="1" startPc="268435925"/>
+        <entry endPc="268436178" name="last" stackId="2" startPc="268435925"/>
+        <entry endPc="268436178" name="age" stackId="3" startPc="268435925"/>
+        <entry endPc="268436057" name="ageMin" stackId="4" startPc="268435977"/>
+        <entry arg="true" endPc="268436385" name="m" stackId="1" startPc="268436276"/>
+        <entry endPc="268436385" name="h" stackId="2" startPc="268436280"/>
+        <entry endPc="268436385" name="mm" stackId="3" startPc="268436280"/>
+        <entry endPc="268436385" name="hs" stackId="4" startPc="268436280"/>
+        <entry endPc="268436385" name="ms" stackId="5" startPc="268436280"/>
+        <entry arg="true" endPc="268437155" name="dc" stackId="1" startPc="268436386"/>
+        <entry endPc="268437154" name="cx" stackId="2" startPc="268436390"/>
+        <entry endPc="268437154" name="cy" stackId="3" startPc="268436390"/>
+        <entry endPc="268437154" name="idx" stackId="4" startPc="268436390"/>
+        <entry endPc="268437154" name="cur" stackId="5" startPc="268436390"/>
+        <entry endPc="268437154" name="nxt" stackId="6" startPc="268436390"/>
+        <entry arg="true" endPc="268437209" name="i" stackId="1" startPc="268437196"/>
+        <entry arg="true" endPc="268437424" name="data" stackId="1" startPc="268437210"/>
+        <entry endPc="268437423" name="n" stackId="2" startPc="268437214"/>
+        <entry endPc="268437423" name="d" stackId="3" startPc="268437214"/>
+        <entry endPc="268437423" name="nm" stackId="4" startPc="268437214"/>
+        <entry endPc="268437423" name="rm" stackId="5" startPc="268437214"/>
+        <entry endPc="268437423" name="st" stackId="6" startPc="268437214"/>
+        <entry endPc="268437423" name="en" stackId="7" startPc="268437214"/>
+        <entry endPc="268437373" name="i" stackId="8" startPc="268437267"/>
+        <entry endPc="268437360" name="item" stackId="9" startPc="268437267"/>
+        <entry endPc="268437755" name="g" stackId="1" startPc="268437429"/>
+        <entry endPc="268437755" name="today" stackId="2" startPc="268437429"/>
+        <entry endPc="268437755" name="nowMin" stackId="3" startPc="268437429"/>
+        <entry endPc="268437755" name="cur" stackId="4" startPc="268437429"/>
+        <entry endPc="268437755" name="nxt" stackId="5" startPc="268437429"/>
+        <entry endPc="268437755" name="n" stackId="6" startPc="268437429"/>
+        <entry endPc="268437728" name="i" stackId="7" startPc="268437579"/>
+        <entry arg="true" endPc="268438147" name="responseCode" stackId="1" startPc="268437997"/>
+        <entry arg="true" endPc="268438147" name="data" stackId="2" startPc="268437997"/>
+        <entry arg="true" endPc="268438161" name="i" stackId="1" startPc="268438148"/>
+        <entry arg="true" endPc="268438195" name="i" stackId="1" startPc="268438182"/>
+        <entry endPc="268438273" name="options" stackId="1" startPc="268438200"/>
+        <entry endPc="268438552" name="bundle" stackId="1" startPc="268438386"/>
+        <entry endPc="268438552" name="t" stackId="2" startPc="268438386"/>
+        <entry arg="true" endPc="268438623" name="hhmm" stackId="1" startPc="268438554"/>
+        <entry arg="true" endPc="268438648" name="i" stackId="1" startPc="268438635"/>
+    </localVars>
+    <deviceInfo deviceVersion="3d0fb192a2cf01699aefd0f384af3f527e5885bd" partNumber="006-B3110-00"/>
+    <annotations>
+        <annotationEntry annotation="initialized" class="Drawables" module="globals/Rez" symbol="LauncherIcon"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="AppName"/>
+    </annotations>
+    <dataEntryOffsetMappings>
+        <dataEntry label="globals" offset="55" parentId="" symbolId="globals" type="module"/>
+        <dataEntry label="globals/SolRozvrhApp" offset="134" parentId="globals" symbolId="SolRozvrhApp" type="class"/>
+        <dataEntry label="globals/SolRozvrhDelegate" offset="189" parentId="globals" symbolId="SolRozvrhDelegate" type="class"/>
+        <dataEntry label="globals/Rez" offset="252" parentId="globals" symbolId="Rez" type="module"/>
+        <dataEntry label="globals/SolRozvrhView" offset="299" parentId="globals" symbolId="SolRozvrhView" type="class"/>
+        <dataEntry label="globals/LessonStore" offset="426" parentId="globals" symbolId="LessonStore" type="class"/>
+        <dataEntry label="globals/Rez/Drawables" offset="649" parentId="Rez" symbolId="Drawables" type="module"/>
+        <dataEntry label="globals/Rez/Strings" offset="688" parentId="Rez" symbolId="Strings" type="module"/>
+    </dataEntryOffsetMappings>
+    <functions>
+        <functionEntry accessMode="public" endPc="268435478" name="&lt;init&gt;" parent="SolRozvrhApp" startPc="268435460">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435497" name="&lt;init&gt;" parent="SolRozvrhDelegate" startPc="268435479">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435521" name="&lt;init&gt;" parent="Rez" startPc="268435498">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435540" name="&lt;init&gt;" parent="SolRozvrhView" startPc="268435522">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="LessonStore">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435617" name="getInitialView" parent="SolRozvrhApp" startPc="268435541">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435638" name="initialize" parent="SolRozvrhApp" startPc="268435618">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435669" name="initialize" parent="SolRozvrhDelegate" startPc="268435639">
+            <param id="view"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435692" name="onSelect" parent="SolRozvrhDelegate" startPc="268435670">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Drawables">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Strings">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435777" name="firstRunMessage" parent="SolRozvrhView" startPc="268435693">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435920" name="onShow" parent="SolRozvrhView" startPc="268435778">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436178" name="syncStatusText" parent="SolRozvrhView" startPc="268435921">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436229" name="initialize" parent="SolRozvrhView" startPc="268436179">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436275" name="onHide" parent="SolRozvrhView" startPc="268436230">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436385" name="minutesToHHMM" parent="SolRozvrhView" startPc="268436276">
+            <param id="m"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437155" name="onUpdate" parent="SolRozvrhView" startPc="268436386">
+            <param id="dc"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437176" name="forceRefresh" parent="SolRozvrhView" startPc="268437156">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437195" name="onTimer" parent="SolRozvrhView" startPc="268437177">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437209" name="nameAt" parent="LessonStore" startPc="268437196">
+            <param id="i"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437424" name="compact" parent="LessonStore" startPc="268437210">
+            <param id="data"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437755" name="currentAndNext" parent="LessonStore" startPc="268437425">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437815" name="needsRefresh" parent="LessonStore" startPc="268437756">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437996" name="saveToStorage" parent="LessonStore" startPc="268437816">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268438147" name="onReceive" parent="LessonStore" startPc="268437997">
+            <param id="responseCode"/>
+            <param id="data"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268438161" name="endAt" parent="LessonStore" startPc="268438148">
+            <param id="i"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268438181" name="entryCount" parent="LessonStore" startPc="268438162">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268438195" name="roomAt" parent="LessonStore" startPc="268438182">
+            <param id="i"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268438274" name="fetch" parent="LessonStore" startPc="268438196">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268438381" name="initialize" parent="LessonStore" startPc="268438275">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268438553" name="loadFromStorage" parent="LessonStore" startPc="268438382">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268438623" name="parseTime" parent="LessonStore" startPc="268438554">
+            <param id="hhmm"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268438634" name="lastFetch" parent="LessonStore" startPc="268438624">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268438648" name="startAt" parent="LessonStore" startPc="268438635">
+            <param id="i"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268438659" name="status" parent="LessonStore" startPc="268438649">
+            <documentation/>
+        </functionEntry>
+    </functions>
+</debugInfo>

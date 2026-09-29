@@ -1,0 +1,927 @@
+[ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [WatchUi,1,13,20]; @symbol_usingAlias = [Ui,1,24,26]; ]
+using Toybox.WatchUi as :Ui;
+[ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [Graphics,2,13,21]; @symbol_usingAlias = [Gfx,2,25,28]; ]
+using Toybox.Graphics as :Gfx;
+[ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [System,3,13,19]; @symbol_usingAlias = [Sys,3,23,26]; ]
+using Toybox.System as :Sys;
+[ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 4; @symbol_usingdef<0> = [Toybox,4,6,12]; @symbol_usingdef<1> = [Timer,4,13,18]; @symbol_usingAlias = [Timer,4,22,27]; ]
+using Toybox.Timer as :Timer;
+[ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 5; @symbol_usingdef<0> = [Toybox,5,6,12]; @symbol_usingdef<1> = [Time,5,13,17]; @symbol_usingAlias = [Time,5,21,25]; ]
+using Toybox.Time as :Time;
+[ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 7; @symbol_classdef = [SolRozvrhView,7,6,19]; @symbol_extends<0> = [Ui,7,28,30]; @symbol_extends<1> = [View,7,31,35]; ]
+class SolRozvrhView extends Ui.View {
+    [ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 7; ]
+    <init> {
+    }
+    [ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 7; ]
+    static
+    <init> {
+    }
+    [ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 9; @position = 8; @symbol_vardef = [_store,9,8,14]; ]
+    var _store;
+    [ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 10; @position = 8; @symbol_vardef = [_timer,10,8,14]; ]
+    var _timer;
+    [ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 12; @symbol_functiondef = [initialize,12,13,23]; ]
+    function initialize() as Void {
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_12_26_15_4_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 13 8 ]
+        symbol [ View %tmp.2 13 8 12 ];
+        %tmp.2 = getv ? :View;
+        symbol [ initialize %tmp.3 13 13 23 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 14 8 ]
+        symbol [ LessonStore %tmp.7 14 21 32 ];
+        %tmp.7 = getv ? :LessonStore;
+        %tmp.4 = newc %tmp.7 ();
+        symbol [ _store ? 14 8 14 ];
+        putv self :_store %tmp.4;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_12_26_15_4_stop:
+    }
+    [ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 17; @symbol_functiondef = [onShow,17,13,19]; ]
+    function onShow() {
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_17_22_25_4_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 20 8 ]
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_20_8_22_8_if_stmt:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_20_12_20_61_begin:
+        symbol [ _store %tmp.2 20 12 18 ];
+        %tmp.2 = getv ? :_store;
+        symbol [ needsRefresh %tmp.3 20 19 31 ];
+        %tmp.3 = getv function %tmp.2 :needsRefresh;
+        %tmp.4 = invoke %tmp.2 %tmp.3();
+        bf %tmp.4 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_20_8_22_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_20_37_20_61_true:
+        symbol [ Sys %tmp.5 20 37 40 ];
+        %tmp.5 = getm $.Toybox.System;
+        symbol [ getDeviceSettings %tmp.6 20 41 58 ];
+        %tmp.6 = getv function %tmp.5 :getDeviceSettings;
+        %tmp.7 = invoke %tmp.5 %tmp.6();
+        symbol [ phoneConnected %tmp.8 20 61 75 ];
+        %tmp.8 = getv %tmp.7 :phoneConnected;
+        push %tmp.8;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_20_37_20_61_end:
+        %tmp.9 = phi [%tmp.4 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_20_12_20_61_begin] [%tmp.8 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_20_37_20_61_true] [%tmp.9 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_20_37_20_61_end];
+        bf %tmp.9 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_20_8_22_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_20_8_22_8_if_true:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_20_77_22_8_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 21 12 ]
+        symbol [ _store %tmp.11 21 12 18 ];
+        %tmp.11 = getv ? :_store;
+        symbol [ fetch %tmp.12 21 19 24 ];
+        %tmp.12 = getv function %tmp.11 :fetch;
+        invoke %tmp.11 %tmp.12();
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_20_77_22_8_stop:
+        goto @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_20_8_22_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_20_8_22_8_if_end:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 23 8 ]
+        symbol [ Timer %tmp.15 23 21 26 ];
+        %tmp.15 = getm $.Toybox.Timer;
+        symbol [ Timer %tmp.16 23 27 32 ];
+        %tmp.16 = getv function ? %tmp.15 :Timer;
+        %tmp.13 = newc %tmp.16 ();
+        symbol [ _timer ? 23 8 14 ];
+        putv self :_timer %tmp.13;
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 24 8 ]
+        symbol [ _timer %tmp.18 24 8 14 ];
+        %tmp.18 = getv ? :_timer;
+        symbol [ start %tmp.19 24 15 20 ];
+        %tmp.19 = getv function %tmp.18 :start;
+        %tmp.20 = self;
+        symbol [ method %tmp.21 24 21 27 ];
+        %tmp.21 = getv function %tmp.20 :method;
+        %tmp.23 = const :onTimer;
+        symbol [ onTimer %tmp.23 24 29 36 const ];
+        %tmp.24 = invoke %tmp.20 %tmp.21(%tmp.23);
+        %tmp.25 = 30000;
+        %tmp.26 = true;
+        invoke %tmp.18 %tmp.19(%tmp.24, %tmp.25, %tmp.26);
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_17_22_25_4_stop:
+    }
+    [ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 27; @symbol_functiondef = [onHide,27,13,19]; ]
+    function onHide() {
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_27_22_32_4_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 28 8 ]
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_28_8_31_8_if_stmt:
+        symbol [ _timer %tmp.2 28 12 18 ];
+        %tmp.2 = getv ? :_timer;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_28_8_31_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_28_8_31_8_if_true:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_28_28_31_8_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 29 12 ]
+        symbol [ _timer %tmp.6 29 12 18 ];
+        %tmp.6 = getv ? :_timer;
+        %tmp.7 = as %tmp.6 { (!Null) };
+        symbol [ stop %tmp.8 29 19 23 ];
+        %tmp.8 = getv function %tmp.7 :stop;
+        invoke %tmp.7 %tmp.8();
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 30 12 ]
+        %tmp.9 = null;
+        symbol [ _timer ? 30 12 18 ];
+        putv self :_timer %tmp.9;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_28_28_31_8_stop:
+        goto @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_28_8_31_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_28_8_31_8_if_end:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_27_22_32_4_stop:
+    }
+    [ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 34; @symbol_functiondef = [onTimer,34,13,20]; ]
+    function onTimer() {
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_34_23_36_4_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 35 8 ]
+        symbol [ Ui %tmp.1 35 8 10 ];
+        %tmp.1 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.2 35 11 24 ];
+        %tmp.2 = getv function %tmp.1 :requestUpdate;
+        invoke %tmp.1 %tmp.2();
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_34_23_36_4_stop:
+    }
+    [ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 38; @symbol_functiondef = [forceRefresh,38,13,25]; ]
+    function forceRefresh() {
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_38_28_40_4_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 39 8 ]
+        symbol [ _store %tmp.2 39 8 14 ];
+        %tmp.2 = getv ? :_store;
+        symbol [ fetch %tmp.3 39 15 20 ];
+        %tmp.3 = getv function %tmp.2 :fetch;
+        invoke %tmp.2 %tmp.3();
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_38_28_40_4_stop:
+    }
+    [ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 42; @symbol_functiondef = [onUpdate,42,13,21]; @symbol_param<0> = [dc,42,22,24]; ]
+    function onUpdate(dc) {
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_42_26_84_4_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 43 8 ]
+        %tmp.1 = lgetv %dc;
+        symbol [ dc %tmp.1 43 8 10 ];
+        symbol [ setColor %tmp.2 43 11 19 ];
+        %tmp.2 = getv function %tmp.1 :setColor;
+        symbol [ Gfx %tmp.3 43 20 23 ];
+        %tmp.3 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.4 43 24 35 ];
+        %tmp.4 = getv %tmp.3 :COLOR_BLACK;
+        symbol [ Gfx %tmp.5 43 37 40 ];
+        %tmp.5 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.6 43 41 52 ];
+        %tmp.6 = getv %tmp.5 :COLOR_WHITE;
+        invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6);
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 44 8 ]
+        %tmp.7 = lgetv %dc;
+        symbol [ dc %tmp.7 44 8 10 ];
+        symbol [ clear %tmp.8 44 11 16 ];
+        %tmp.8 = getv function %tmp.7 :clear;
+        invoke %tmp.7 %tmp.8();
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 46 8 ]
+        [ "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_42_26_84_4_start" "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_42_26_84_4_stop" ]
+        %cx.1 = local;
+        symbol [ cx %cx.1 46 12 14 ];
+        %tmp.9 = lgetv %dc;
+        symbol [ dc %tmp.9 46 17 19 ];
+        symbol [ getWidth %tmp.10 46 20 28 ];
+        %tmp.10 = getv function %tmp.9 :getWidth;
+        %tmp.11 = invoke %tmp.9 %tmp.10();
+        %tmp.12 = 2;
+        %tmp.13 = div %tmp.11 %tmp.12;
+        lputv %cx.1 %tmp.13;
+        symbol [ cx %cx.1 46 12 14 ];
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 47 8 ]
+        [ "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_42_26_84_4_start" "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_42_26_84_4_stop" ]
+        %cy.2 = local;
+        symbol [ cy %cy.2 47 12 14 ];
+        %tmp.14 = lgetv %dc;
+        symbol [ dc %tmp.14 47 17 19 ];
+        symbol [ getHeight %tmp.15 47 20 29 ];
+        %tmp.15 = getv function %tmp.14 :getHeight;
+        %tmp.16 = invoke %tmp.14 %tmp.15();
+        %tmp.17 = 2;
+        %tmp.18 = div %tmp.16 %tmp.17;
+        lputv %cy.2 %tmp.18;
+        symbol [ cy %cy.2 47 12 14 ];
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 49 8 ]
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_49_8_53_8_if_stmt:
+        symbol [ _store %tmp.20 49 12 18 ];
+        %tmp.20 = getv ? :_store;
+        symbol [ entryCount %tmp.21 49 19 29 ];
+        %tmp.21 = getv function %tmp.20 :entryCount;
+        %tmp.22 = invoke %tmp.20 %tmp.21();
+        %tmp.23 = 0;
+        %tmp.24 = eq %tmp.22 %tmp.23;
+        bf %tmp.24 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_49_8_53_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_49_8_53_8_if_true:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_49_38_53_8_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 50 12 ]
+        %tmp.25 = lgetv %dc;
+        symbol [ dc %tmp.25 50 12 14 ];
+        symbol [ drawText %tmp.26 50 15 23 ];
+        %tmp.26 = getv function %tmp.25 :drawText;
+        %tmp.27 = lgetv %cx.1;
+        symbol [ cx %tmp.27 50 24 26 ];
+        %tmp.28 = lgetv %cy.2;
+        symbol [ cy %tmp.28 50 28 30 ];
+        symbol [ Gfx %tmp.29 50 32 35 ];
+        %tmp.29 = getm $.Toybox.Graphics;
+        symbol [ FONT_SMALL %tmp.30 50 36 46 ];
+        %tmp.30 = getv %tmp.29 :FONT_SMALL;
+        %tmp.31 = self;
+        symbol [ firstRunMessage %tmp.32 50 48 63 ];
+        %tmp.32 = getv function %tmp.31 :firstRunMessage;
+        %tmp.33 = invoke %tmp.31 %tmp.32();
+        symbol [ Gfx %tmp.34 51 16 19 ];
+        %tmp.34 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.35 51 20 39 ];
+        %tmp.35 = getv %tmp.34 :TEXT_JUSTIFY_CENTER;
+        symbol [ Gfx %tmp.36 51 42 45 ];
+        %tmp.36 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.37 51 46 66 ];
+        %tmp.37 = getv %tmp.36 :TEXT_JUSTIFY_VCENTER;
+        %tmp.38 = bitor %tmp.35 %tmp.37;
+        invoke %tmp.25 %tmp.26(%tmp.27, %tmp.28, %tmp.30, %tmp.33, %tmp.38);
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 52 12 ]
+        ret ?;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_49_38_53_8_stop:
+        goto @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_49_8_53_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_49_8_53_8_if_end:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 55 8 ]
+        [ "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_42_26_84_4_start" "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_42_26_84_4_stop" ]
+        %idx.3 = local;
+        symbol [ idx %idx.3 55 12 15 ];
+        symbol [ _store %tmp.40 55 18 24 ];
+        %tmp.40 = getv ? :_store;
+        symbol [ currentAndNext %tmp.41 55 25 39 ];
+        %tmp.41 = getv function %tmp.40 :currentAndNext;
+        %tmp.42 = invoke %tmp.40 %tmp.41();
+        lputv %idx.3 %tmp.42;
+        symbol [ idx %idx.3 55 12 15 ];
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 56 8 ]
+        [ "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_42_26_84_4_start" "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_42_26_84_4_stop" ]
+        %cur.4 = local;
+        symbol [ cur %cur.4 56 12 15 ];
+        %tmp.43 = lgetv %idx.3;
+        symbol [ idx %tmp.43 56 18 21 ];
+        %tmp.44 = 0;
+        %tmp.45 = agetv %tmp.43 %tmp.44;
+        lputv %cur.4 %tmp.45;
+        symbol [ cur %cur.4 56 12 15 ];
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 57 8 ]
+        [ "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_42_26_84_4_start" "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_42_26_84_4_stop" ]
+        %nxt.5 = local;
+        symbol [ nxt %nxt.5 57 12 15 ];
+        %tmp.46 = lgetv %idx.3;
+        symbol [ idx %tmp.46 57 18 21 ];
+        %tmp.47 = 1;
+        %tmp.48 = agetv %tmp.46 %tmp.47;
+        lputv %nxt.5 %tmp.48;
+        symbol [ nxt %nxt.5 57 12 15 ];
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 59 8 ]
+        %tmp.49 = lgetv %dc;
+        symbol [ dc %tmp.49 59 8 10 ];
+        symbol [ drawText %tmp.50 59 11 19 ];
+        %tmp.50 = getv function %tmp.49 :drawText;
+        %tmp.51 = lgetv %cx.1;
+        symbol [ cx %tmp.51 59 20 22 ];
+        %tmp.52 = lgetv %cy.2;
+        symbol [ cy %tmp.52 59 24 26 ];
+        %tmp.53 = 70;
+        %tmp.54 = sub %tmp.52 %tmp.53;
+        symbol [ Gfx %tmp.55 59 33 36 ];
+        %tmp.55 = getm $.Toybox.Graphics;
+        symbol [ FONT_TINY %tmp.56 59 37 46 ];
+        %tmp.56 = getv %tmp.55 :FONT_TINY;
+        %tmp.57 = "NYNÍ";
+        symbol [ Gfx %tmp.58 59 56 59 ];
+        %tmp.58 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.59 59 60 79 ];
+        %tmp.59 = getv %tmp.58 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.49 %tmp.50(%tmp.51, %tmp.54, %tmp.56, %tmp.57, %tmp.59);
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 60 8 ]
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_60_8_68_8_if_stmt:
+        %tmp.60 = lgetv %cur.4;
+        symbol [ cur %tmp.60 60 12 15 ];
+        %tmp.61 = -1;
+        %tmp.62 = eq %tmp.60 %tmp.61;
+        bf %tmp.62 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_60_8_68_8_if_else_false;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_60_8_68_8_if_true:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_60_23_62_8_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 61 12 ]
+        %tmp.63 = lgetv %dc;
+        symbol [ dc %tmp.63 61 12 14 ];
+        symbol [ drawText %tmp.64 61 15 23 ];
+        %tmp.64 = getv function %tmp.63 :drawText;
+        %tmp.65 = lgetv %cx.1;
+        symbol [ cx %tmp.65 61 24 26 ];
+        %tmp.66 = lgetv %cy.2;
+        symbol [ cy %tmp.66 61 28 30 ];
+        %tmp.67 = 45;
+        %tmp.68 = sub %tmp.66 %tmp.67;
+        symbol [ Gfx %tmp.69 61 37 40 ];
+        %tmp.69 = getm $.Toybox.Graphics;
+        symbol [ FONT_MEDIUM %tmp.70 61 41 52 ];
+        %tmp.70 = getv %tmp.69 :FONT_MEDIUM;
+        %tmp.71 = "volno";
+        symbol [ Gfx %tmp.72 61 63 66 ];
+        %tmp.72 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.73 61 67 86 ];
+        %tmp.73 = getv %tmp.72 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.63 %tmp.64(%tmp.65, %tmp.68, %tmp.70, %tmp.71, %tmp.73);
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_60_23_62_8_stop:
+        goto @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_60_8_68_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_60_8_68_8_if_else_false:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_62_15_68_8_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 63 12 ]
+        %tmp.74 = lgetv %dc;
+        symbol [ dc %tmp.74 63 12 14 ];
+        symbol [ drawText %tmp.75 63 15 23 ];
+        %tmp.75 = getv function %tmp.74 :drawText;
+        %tmp.76 = lgetv %cx.1;
+        symbol [ cx %tmp.76 63 24 26 ];
+        %tmp.77 = lgetv %cy.2;
+        symbol [ cy %tmp.77 63 28 30 ];
+        %tmp.78 = 48;
+        %tmp.79 = sub %tmp.77 %tmp.78;
+        symbol [ Gfx %tmp.80 63 37 40 ];
+        %tmp.80 = getm $.Toybox.Graphics;
+        symbol [ FONT_MEDIUM %tmp.81 63 41 52 ];
+        %tmp.81 = getv %tmp.80 :FONT_MEDIUM;
+        symbol [ _store %tmp.83 64 16 22 ];
+        %tmp.83 = getv ? :_store;
+        symbol [ nameAt %tmp.84 64 23 29 ];
+        %tmp.84 = getv function %tmp.83 :nameAt;
+        %tmp.85 = lgetv %cur.4;
+        symbol [ cur %tmp.85 64 30 33 ];
+        %tmp.86 = invoke %tmp.83 %tmp.84(%tmp.85);
+        %tmp.87 = "  ";
+        %tmp.88 = add %tmp.86 %tmp.87;
+        symbol [ _store %tmp.90 64 44 50 ];
+        %tmp.90 = getv ? :_store;
+        symbol [ roomAt %tmp.91 64 51 57 ];
+        %tmp.91 = getv function %tmp.90 :roomAt;
+        %tmp.92 = lgetv %cur.4;
+        symbol [ cur %tmp.92 64 58 61 ];
+        %tmp.93 = invoke %tmp.90 %tmp.91(%tmp.92);
+        %tmp.94 = add %tmp.88 %tmp.93;
+        symbol [ Gfx %tmp.95 64 64 67 ];
+        %tmp.95 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.96 64 68 87 ];
+        %tmp.96 = getv %tmp.95 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.74 %tmp.75(%tmp.76, %tmp.79, %tmp.81, %tmp.94, %tmp.96);
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 65 12 ]
+        %tmp.97 = lgetv %dc;
+        symbol [ dc %tmp.97 65 12 14 ];
+        symbol [ drawText %tmp.98 65 15 23 ];
+        %tmp.98 = getv function %tmp.97 :drawText;
+        %tmp.99 = lgetv %cx.1;
+        symbol [ cx %tmp.99 65 24 26 ];
+        %tmp.100 = lgetv %cy.2;
+        symbol [ cy %tmp.100 65 28 30 ];
+        %tmp.101 = 18;
+        %tmp.102 = sub %tmp.100 %tmp.101;
+        symbol [ Gfx %tmp.103 65 37 40 ];
+        %tmp.103 = getm $.Toybox.Graphics;
+        symbol [ FONT_TINY %tmp.104 65 41 50 ];
+        %tmp.104 = getv %tmp.103 :FONT_TINY;
+        %tmp.105 = self;
+        symbol [ minutesToHHMM %tmp.106 66 16 29 ];
+        %tmp.106 = getv function %tmp.105 :minutesToHHMM;
+        symbol [ _store %tmp.108 66 30 36 ];
+        %tmp.108 = getv ? :_store;
+        symbol [ startAt %tmp.109 66 37 44 ];
+        %tmp.109 = getv function %tmp.108 :startAt;
+        %tmp.110 = lgetv %cur.4;
+        symbol [ cur %tmp.110 66 45 48 ];
+        %tmp.111 = invoke %tmp.108 %tmp.109(%tmp.110);
+        %tmp.112 = invoke %tmp.105 %tmp.106(%tmp.111);
+        %tmp.113 = "-";
+        %tmp.114 = add %tmp.112 %tmp.113;
+        %tmp.115 = self;
+        symbol [ minutesToHHMM %tmp.116 66 59 72 ];
+        %tmp.116 = getv function %tmp.115 :minutesToHHMM;
+        symbol [ _store %tmp.118 66 73 79 ];
+        %tmp.118 = getv ? :_store;
+        symbol [ endAt %tmp.119 66 80 85 ];
+        %tmp.119 = getv function %tmp.118 :endAt;
+        %tmp.120 = lgetv %cur.4;
+        symbol [ cur %tmp.120 66 86 89 ];
+        %tmp.121 = invoke %tmp.118 %tmp.119(%tmp.120);
+        %tmp.122 = invoke %tmp.115 %tmp.116(%tmp.121);
+        %tmp.123 = add %tmp.114 %tmp.122;
+        symbol [ Gfx %tmp.124 67 16 19 ];
+        %tmp.124 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.125 67 20 39 ];
+        %tmp.125 = getv %tmp.124 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.97 %tmp.98(%tmp.99, %tmp.102, %tmp.104, %tmp.123, %tmp.125);
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_62_15_68_8_stop:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_60_8_68_8_if_end:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 70 8 ]
+        %tmp.126 = lgetv %dc;
+        symbol [ dc %tmp.126 70 8 10 ];
+        symbol [ drawLine %tmp.127 70 11 19 ];
+        %tmp.127 = getv function %tmp.126 :drawLine;
+        %tmp.128 = lgetv %cx.1;
+        symbol [ cx %tmp.128 70 20 22 ];
+        %tmp.129 = 60;
+        %tmp.130 = sub %tmp.128 %tmp.129;
+        %tmp.131 = lgetv %cy.2;
+        symbol [ cy %tmp.131 70 29 31 ];
+        %tmp.132 = 5;
+        %tmp.133 = add %tmp.131 %tmp.132;
+        %tmp.134 = lgetv %cx.1;
+        symbol [ cx %tmp.134 70 37 39 ];
+        %tmp.135 = 60;
+        %tmp.136 = add %tmp.134 %tmp.135;
+        %tmp.137 = lgetv %cy.2;
+        symbol [ cy %tmp.137 70 46 48 ];
+        %tmp.138 = 5;
+        %tmp.139 = add %tmp.137 %tmp.138;
+        invoke %tmp.126 %tmp.127(%tmp.130, %tmp.133, %tmp.136, %tmp.139);
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 72 8 ]
+        %tmp.140 = lgetv %dc;
+        symbol [ dc %tmp.140 72 8 10 ];
+        symbol [ drawText %tmp.141 72 11 19 ];
+        %tmp.141 = getv function %tmp.140 :drawText;
+        %tmp.142 = lgetv %cx.1;
+        symbol [ cx %tmp.142 72 20 22 ];
+        %tmp.143 = lgetv %cy.2;
+        symbol [ cy %tmp.143 72 24 26 ];
+        %tmp.144 = 15;
+        %tmp.145 = add %tmp.143 %tmp.144;
+        symbol [ Gfx %tmp.146 72 33 36 ];
+        %tmp.146 = getm $.Toybox.Graphics;
+        symbol [ FONT_TINY %tmp.147 72 37 46 ];
+        %tmp.147 = getv %tmp.146 :FONT_TINY;
+        %tmp.148 = "DÁLE";
+        symbol [ Gfx %tmp.149 72 56 59 ];
+        %tmp.149 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.150 72 60 79 ];
+        %tmp.150 = getv %tmp.149 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.140 %tmp.141(%tmp.142, %tmp.145, %tmp.147, %tmp.148, %tmp.150);
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 73 8 ]
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_73_8_80_8_if_stmt:
+        %tmp.151 = lgetv %nxt.5;
+        symbol [ nxt %tmp.151 73 12 15 ];
+        %tmp.152 = -1;
+        %tmp.153 = eq %tmp.151 %tmp.152;
+        bf %tmp.153 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_73_8_80_8_if_else_false;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_73_8_80_8_if_true:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_73_23_75_8_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 74 12 ]
+        %tmp.154 = lgetv %dc;
+        symbol [ dc %tmp.154 74 12 14 ];
+        symbol [ drawText %tmp.155 74 15 23 ];
+        %tmp.155 = getv function %tmp.154 :drawText;
+        %tmp.156 = lgetv %cx.1;
+        symbol [ cx %tmp.156 74 24 26 ];
+        %tmp.157 = lgetv %cy.2;
+        symbol [ cy %tmp.157 74 28 30 ];
+        %tmp.158 = 42;
+        %tmp.159 = add %tmp.157 %tmp.158;
+        symbol [ Gfx %tmp.160 74 37 40 ];
+        %tmp.160 = getm $.Toybox.Graphics;
+        symbol [ FONT_SMALL %tmp.161 74 41 51 ];
+        %tmp.161 = getv %tmp.160 :FONT_SMALL;
+        %tmp.162 = "nic dalšího";
+        symbol [ Gfx %tmp.163 74 68 71 ];
+        %tmp.163 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.164 74 72 91 ];
+        %tmp.164 = getv %tmp.163 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.154 %tmp.155(%tmp.156, %tmp.159, %tmp.161, %tmp.162, %tmp.164);
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_73_23_75_8_stop:
+        goto @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_73_8_80_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_73_8_80_8_if_else_false:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_75_15_80_8_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 76 12 ]
+        %tmp.165 = lgetv %dc;
+        symbol [ dc %tmp.165 76 12 14 ];
+        symbol [ drawText %tmp.166 76 15 23 ];
+        %tmp.166 = getv function %tmp.165 :drawText;
+        %tmp.167 = lgetv %cx.1;
+        symbol [ cx %tmp.167 76 24 26 ];
+        %tmp.168 = lgetv %cy.2;
+        symbol [ cy %tmp.168 76 28 30 ];
+        %tmp.169 = 42;
+        %tmp.170 = add %tmp.168 %tmp.169;
+        symbol [ Gfx %tmp.171 76 37 40 ];
+        %tmp.171 = getm $.Toybox.Graphics;
+        symbol [ FONT_MEDIUM %tmp.172 76 41 52 ];
+        %tmp.172 = getv %tmp.171 :FONT_MEDIUM;
+        symbol [ _store %tmp.174 77 16 22 ];
+        %tmp.174 = getv ? :_store;
+        symbol [ nameAt %tmp.175 77 23 29 ];
+        %tmp.175 = getv function %tmp.174 :nameAt;
+        %tmp.176 = lgetv %nxt.5;
+        symbol [ nxt %tmp.176 77 30 33 ];
+        %tmp.177 = invoke %tmp.174 %tmp.175(%tmp.176);
+        %tmp.178 = "  ";
+        %tmp.179 = add %tmp.177 %tmp.178;
+        symbol [ _store %tmp.181 77 44 50 ];
+        %tmp.181 = getv ? :_store;
+        symbol [ roomAt %tmp.182 77 51 57 ];
+        %tmp.182 = getv function %tmp.181 :roomAt;
+        %tmp.183 = lgetv %nxt.5;
+        symbol [ nxt %tmp.183 77 58 61 ];
+        %tmp.184 = invoke %tmp.181 %tmp.182(%tmp.183);
+        %tmp.185 = add %tmp.179 %tmp.184;
+        symbol [ Gfx %tmp.186 77 64 67 ];
+        %tmp.186 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.187 77 68 87 ];
+        %tmp.187 = getv %tmp.186 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.165 %tmp.166(%tmp.167, %tmp.170, %tmp.172, %tmp.185, %tmp.187);
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 78 12 ]
+        %tmp.188 = lgetv %dc;
+        symbol [ dc %tmp.188 78 12 14 ];
+        symbol [ drawText %tmp.189 78 15 23 ];
+        %tmp.189 = getv function %tmp.188 :drawText;
+        %tmp.190 = lgetv %cx.1;
+        symbol [ cx %tmp.190 78 24 26 ];
+        %tmp.191 = lgetv %cy.2;
+        symbol [ cy %tmp.191 78 28 30 ];
+        %tmp.192 = 72;
+        %tmp.193 = add %tmp.191 %tmp.192;
+        symbol [ Gfx %tmp.194 78 37 40 ];
+        %tmp.194 = getm $.Toybox.Graphics;
+        symbol [ FONT_TINY %tmp.195 78 41 50 ];
+        %tmp.195 = getv %tmp.194 :FONT_TINY;
+        %tmp.196 = self;
+        symbol [ minutesToHHMM %tmp.197 78 52 65 ];
+        %tmp.197 = getv function %tmp.196 :minutesToHHMM;
+        symbol [ _store %tmp.199 78 66 72 ];
+        %tmp.199 = getv ? :_store;
+        symbol [ startAt %tmp.200 78 73 80 ];
+        %tmp.200 = getv function %tmp.199 :startAt;
+        %tmp.201 = lgetv %nxt.5;
+        symbol [ nxt %tmp.201 78 81 84 ];
+        %tmp.202 = invoke %tmp.199 %tmp.200(%tmp.201);
+        %tmp.203 = invoke %tmp.196 %tmp.197(%tmp.202);
+        symbol [ Gfx %tmp.204 79 16 19 ];
+        %tmp.204 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.205 79 20 39 ];
+        %tmp.205 = getv %tmp.204 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.188 %tmp.189(%tmp.190, %tmp.193, %tmp.195, %tmp.203, %tmp.205);
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_75_15_80_8_stop:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_73_8_80_8_if_end:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 82 8 ]
+        %tmp.206 = lgetv %dc;
+        symbol [ dc %tmp.206 82 8 10 ];
+        symbol [ drawText %tmp.207 82 11 19 ];
+        %tmp.207 = getv function %tmp.206 :drawText;
+        %tmp.208 = lgetv %cx.1;
+        symbol [ cx %tmp.208 82 20 22 ];
+        %tmp.209 = lgetv %dc;
+        symbol [ dc %tmp.209 82 24 26 ];
+        symbol [ getHeight %tmp.210 82 27 36 ];
+        %tmp.210 = getv function %tmp.209 :getHeight;
+        %tmp.211 = invoke %tmp.209 %tmp.210();
+        %tmp.212 = 24;
+        %tmp.213 = sub %tmp.211 %tmp.212;
+        symbol [ Gfx %tmp.214 82 45 48 ];
+        %tmp.214 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.215 82 49 59 ];
+        %tmp.215 = getv %tmp.214 :FONT_XTINY;
+        %tmp.216 = self;
+        symbol [ syncStatusText %tmp.217 82 61 75 ];
+        %tmp.217 = getv function %tmp.216 :syncStatusText;
+        %tmp.218 = invoke %tmp.216 %tmp.217();
+        symbol [ Gfx %tmp.219 83 12 15 ];
+        %tmp.219 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.220 83 16 35 ];
+        %tmp.220 = getv %tmp.219 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.206 %tmp.207(%tmp.208, %tmp.213, %tmp.215, %tmp.218, %tmp.220);
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_42_26_84_4_stop:
+    }
+    [ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 86; @symbol_functiondef = [firstRunMessage,86,13,28]; ]
+    function firstRunMessage() {
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_86_31_95_4_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 87 8 ]
+        [ "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_86_31_95_4_start" "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_86_31_95_4_stop" ]
+        %status.1 = local;
+        symbol [ status %status.1 87 12 18 ];
+        symbol [ _store %tmp.2 87 21 27 ];
+        %tmp.2 = getv ? :_store;
+        symbol [ status %tmp.3 87 28 34 ];
+        %tmp.3 = getv function %tmp.2 :status;
+        %tmp.4 = invoke %tmp.2 %tmp.3();
+        lputv %status.1 %tmp.4;
+        symbol [ status %status.1 87 12 18 ];
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 88 8 ]
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_88_8_90_8_if_stmt:
+        %tmp.5 = lgetv %status.1;
+        symbol [ status %tmp.5 88 12 18 ];
+        symbol [ equals %tmp.6 88 19 25 ];
+        %tmp.6 = getv function %tmp.5 :equals;
+        %tmp.7 = "no_phone";
+        %tmp.8 = invoke %tmp.5 %tmp.6(%tmp.7);
+        bf %tmp.8 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_88_8_90_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_88_8_90_8_if_true:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_88_39_90_8_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 89 12 ]
+        %tmp.9 = "Připoj telefon";
+        ret %tmp.9;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_88_39_90_8_stop:
+        goto @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_88_8_90_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_88_8_90_8_if_end:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 91 8 ]
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_91_8_93_8_if_stmt:
+        %tmp.10 = lgetv %status.1;
+        symbol [ status %tmp.10 91 12 18 ];
+        symbol [ equals %tmp.11 91 19 25 ];
+        %tmp.11 = getv function %tmp.10 :equals;
+        %tmp.12 = "error";
+        %tmp.13 = invoke %tmp.10 %tmp.11(%tmp.12);
+        bf %tmp.13 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_91_8_93_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_91_8_93_8_if_true:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_91_36_93_8_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 92 12 ]
+        %tmp.14 = "Chyba sítě";
+        ret %tmp.14;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_91_36_93_8_stop:
+        goto @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_91_8_93_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_91_8_93_8_if_end:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 94 8 ]
+        %tmp.15 = "Načítání...";
+        ret %tmp.15;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_86_31_95_4_stop:
+    }
+    [ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 99; @symbol_functiondef = [syncStatusText,99,13,27]; ]
+    function syncStatusText() {
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_99_30_123_4_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 100 8 ]
+        [ "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_99_30_123_4_start" "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_99_30_123_4_stop" ]
+        %status.1 = local;
+        symbol [ status %status.1 100 12 18 ];
+        symbol [ _store %tmp.2 100 21 27 ];
+        %tmp.2 = getv ? :_store;
+        symbol [ status %tmp.3 100 28 34 ];
+        %tmp.3 = getv function %tmp.2 :status;
+        %tmp.4 = invoke %tmp.2 %tmp.3();
+        lputv %status.1 %tmp.4;
+        symbol [ status %status.1 100 12 18 ];
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 101 8 ]
+        [ "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_99_30_123_4_start" "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_99_30_123_4_stop" ]
+        %last.2 = local;
+        symbol [ last %last.2 101 12 16 ];
+        symbol [ _store %tmp.6 101 19 25 ];
+        %tmp.6 = getv ? :_store;
+        symbol [ lastFetch %tmp.7 101 26 35 ];
+        %tmp.7 = getv function %tmp.6 :lastFetch;
+        %tmp.8 = invoke %tmp.6 %tmp.7();
+        lputv %last.2 %tmp.8;
+        symbol [ last %last.2 101 12 16 ];
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 102 8 ]
+        [ "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_99_30_123_4_start" "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_99_30_123_4_stop" ]
+        %age.3 = local;
+        symbol [ age %age.3 102 12 15 ];
+        %tmp.9 = "";
+        lputv %age.3 %tmp.9;
+        symbol [ age %age.3 102 12 15 ];
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 103 8 ]
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_103_8_110_8_if_stmt:
+        %tmp.10 = lgetv %last.2;
+        symbol [ last %tmp.10 103 12 16 ];
+        %tmp.11 = null;
+        %tmp.12 = ne %tmp.10 %tmp.11;
+        bf %tmp.12 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_103_8_110_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_103_8_110_8_if_true:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_103_26_110_8_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 104 12 ]
+        [ "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_103_26_110_8_start" "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_103_26_110_8_stop" ]
+        %ageMin.4 = local;
+        symbol [ ageMin %ageMin.4 104 16 22 ];
+        symbol [ Time %tmp.13 104 26 30 ];
+        %tmp.13 = getm $.Toybox.Time;
+        symbol [ now %tmp.14 104 31 34 ];
+        %tmp.14 = getv function %tmp.13 :now;
+        %tmp.15 = invoke %tmp.13 %tmp.14();
+        symbol [ value %tmp.16 104 37 42 ];
+        %tmp.16 = getv function %tmp.15 :value;
+        %tmp.17 = invoke %tmp.15 %tmp.16();
+        %tmp.18 = lgetv %last.2;
+        symbol [ last %tmp.18 104 47 51 ];
+        %tmp.19 = as %tmp.18 { (!Null) };
+        %tmp.20 = sub %tmp.17 %tmp.19;
+        %tmp.21 = 60;
+        %tmp.22 = div %tmp.20 %tmp.21;
+        lputv %ageMin.4 %tmp.22;
+        symbol [ ageMin %ageMin.4 104 16 22 ];
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 105 12 ]
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_105_12_109_12_if_stmt:
+        %tmp.23 = lgetv %ageMin.4;
+        symbol [ ageMin %tmp.23 105 16 22 ];
+        %tmp.24 = 1;
+        %tmp.25 = lt %tmp.23 %tmp.24;
+        bf %tmp.25 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_105_12_109_12_if_else_false;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_105_12_109_12_if_true:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_105_28_107_12_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 106 16 ]
+        %tmp.26 = "právě teď";
+        lputv %age.3 %tmp.26;
+        symbol [ age %age.3 106 16 19 ];
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_105_28_107_12_stop:
+        goto @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_105_12_109_12_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_105_12_109_12_if_else_false:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_107_19_109_12_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 108 16 ]
+        %tmp.27 = "před ";
+        %tmp.28 = lgetv %ageMin.4;
+        symbol [ ageMin %tmp.28 108 32 38 ];
+        symbol [ toString %tmp.29 108 39 47 ];
+        %tmp.29 = getv function %tmp.28 :toString;
+        %tmp.30 = invoke %tmp.28 %tmp.29();
+        %tmp.31 = add %tmp.27 %tmp.30;
+        %tmp.32 = " min";
+        %tmp.33 = add %tmp.31 %tmp.32;
+        lputv %age.3 %tmp.33;
+        symbol [ age %age.3 108 16 19 ];
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_107_19_109_12_stop:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_105_12_109_12_if_end:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_103_26_110_8_stop:
+        goto @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_103_8_110_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_103_8_110_8_if_end:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 111 8 ]
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_111_8_114_8_if_stmt:
+        %tmp.34 = lgetv %status.1;
+        symbol [ status %tmp.34 111 12 18 ];
+        symbol [ equals %tmp.35 111 19 25 ];
+        %tmp.35 = getv function %tmp.34 :equals;
+        %tmp.36 = "no_phone";
+        %tmp.37 = invoke %tmp.34 %tmp.35(%tmp.36);
+        bf %tmp.37 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_111_8_114_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_111_8_114_8_if_true:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_111_39_114_8_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 112 12 ]
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_112_12_112_69_if_stmt:
+        %tmp.38 = lgetv %last.2;
+        symbol [ last %tmp.38 112 16 20 ];
+        %tmp.39 = null;
+        %tmp.40 = ne %tmp.38 %tmp.39;
+        bf %tmp.40 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_112_12_112_69_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_112_12_112_69_if_true:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_112_30_112_69_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 112 32 ]
+        %tmp.41 = "bez telefonu - data ";
+        %tmp.42 = lgetv %age.3;
+        symbol [ age %tmp.42 112 64 67 ];
+        %tmp.43 = add %tmp.41 %tmp.42;
+        ret %tmp.43;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_112_30_112_69_stop:
+        goto @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_112_12_112_69_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_112_12_112_69_if_end:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 113 12 ]
+        %tmp.44 = "telefon není připojen";
+        ret %tmp.44;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_111_39_114_8_stop:
+        goto @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_111_8_114_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_111_8_114_8_if_end:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 115 8 ]
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_115_8_118_8_if_stmt:
+        %tmp.45 = lgetv %status.1;
+        symbol [ status %tmp.45 115 12 18 ];
+        symbol [ equals %tmp.46 115 19 25 ];
+        %tmp.46 = getv function %tmp.45 :equals;
+        %tmp.47 = "error";
+        %tmp.48 = invoke %tmp.45 %tmp.46(%tmp.47);
+        bf %tmp.48 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_115_8_118_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_115_8_118_8_if_true:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_115_36_118_8_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 116 12 ]
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_116_12_116_67_if_stmt:
+        %tmp.49 = lgetv %last.2;
+        symbol [ last %tmp.49 116 16 20 ];
+        %tmp.50 = null;
+        %tmp.51 = ne %tmp.49 %tmp.50;
+        bf %tmp.51 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_116_12_116_67_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_116_12_116_67_if_true:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_116_30_116_67_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 116 32 ]
+        %tmp.52 = "chyba sítě - data ";
+        %tmp.53 = lgetv %age.3;
+        symbol [ age %tmp.53 116 62 65 ];
+        %tmp.54 = add %tmp.52 %tmp.53;
+        ret %tmp.54;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_116_30_116_67_stop:
+        goto @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_116_12_116_67_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_116_12_116_67_if_end:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 117 12 ]
+        %tmp.55 = "chyba synchronizace";
+        ret %tmp.55;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_115_36_118_8_stop:
+        goto @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_115_8_118_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_115_8_118_8_if_end:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 119 8 ]
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_119_8_121_8_if_stmt:
+        %tmp.56 = lgetv %last.2;
+        symbol [ last %tmp.56 119 12 16 ];
+        %tmp.57 = null;
+        %tmp.58 = eq %tmp.56 %tmp.57;
+        bf %tmp.58 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_119_8_121_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_119_8_121_8_if_true:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_119_26_121_8_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 120 12 ]
+        %tmp.59 = "zatím žádná data";
+        ret %tmp.59;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_119_26_121_8_stop:
+        goto @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_119_8_121_8_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_119_8_121_8_if_end:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 122 8 ]
+        %tmp.60 = "aktualizováno ";
+        %tmp.61 = lgetv %age.3;
+        symbol [ age %tmp.61 122 34 37 ];
+        %tmp.62 = add %tmp.60 %tmp.61;
+        ret %tmp.62;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_99_30_123_4_stop:
+    }
+    [ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 125; @symbol_functiondef = [minutesToHHMM,125,13,26]; @symbol_param<0> = [m,125,27,28]; ]
+    function minutesToHHMM(m) {
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_125_30_133_4_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 126 8 ]
+        [ "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_125_30_133_4_start" "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_125_30_133_4_stop" ]
+        %h.1 = local;
+        symbol [ h %h.1 126 12 13 ];
+        %tmp.1 = lgetv %m;
+        symbol [ m %tmp.1 126 16 17 ];
+        %tmp.2 = 60;
+        %tmp.3 = div %tmp.1 %tmp.2;
+        lputv %h.1 %tmp.3;
+        symbol [ h %h.1 126 12 13 ];
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 127 8 ]
+        [ "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_125_30_133_4_start" "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_125_30_133_4_stop" ]
+        %mm.2 = local;
+        symbol [ mm %mm.2 127 12 14 ];
+        %tmp.4 = lgetv %m;
+        symbol [ m %tmp.4 127 17 18 ];
+        %tmp.5 = 60;
+        %tmp.6 = mod %tmp.4 %tmp.5;
+        lputv %mm.2 %tmp.6;
+        symbol [ mm %mm.2 127 12 14 ];
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 128 8 ]
+        [ "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_125_30_133_4_start" "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_125_30_133_4_stop" ]
+        %hs.3 = local;
+        symbol [ hs %hs.3 128 12 14 ];
+        %tmp.7 = lgetv %h.1;
+        symbol [ h %tmp.7 128 17 18 ];
+        symbol [ toString %tmp.8 128 19 27 ];
+        %tmp.8 = getv function %tmp.7 :toString;
+        %tmp.9 = invoke %tmp.7 %tmp.8();
+        lputv %hs.3 %tmp.9;
+        symbol [ hs %hs.3 128 12 14 ];
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 129 8 ]
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_129_8_129_37_if_stmt:
+        %tmp.10 = lgetv %h.1;
+        symbol [ h %tmp.10 129 12 13 ];
+        %tmp.11 = 10;
+        %tmp.12 = lt %tmp.10 %tmp.11;
+        bf %tmp.12 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_129_8_129_37_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_129_8_129_37_if_true:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_129_20_129_37_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 129 22 ]
+        %tmp.13 = "0";
+        %tmp.14 = lgetv %hs.3;
+        symbol [ hs %tmp.14 129 33 35 ];
+        %tmp.15 = add %tmp.13 %tmp.14;
+        lputv %hs.3 %tmp.15;
+        symbol [ hs %hs.3 129 22 24 ];
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_129_20_129_37_stop:
+        goto @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_129_8_129_37_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_129_8_129_37_if_end:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 130 8 ]
+        [ "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_125_30_133_4_start" "C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_125_30_133_4_stop" ]
+        %ms.4 = local;
+        symbol [ ms %ms.4 130 12 14 ];
+        %tmp.16 = lgetv %mm.2;
+        symbol [ mm %tmp.16 130 17 19 ];
+        symbol [ toString %tmp.17 130 20 28 ];
+        %tmp.17 = getv function %tmp.16 :toString;
+        %tmp.18 = invoke %tmp.16 %tmp.17();
+        lputv %ms.4 %tmp.18;
+        symbol [ ms %ms.4 130 12 14 ];
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 131 8 ]
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_131_8_131_38_if_stmt:
+        %tmp.19 = lgetv %mm.2;
+        symbol [ mm %tmp.19 131 12 14 ];
+        %tmp.20 = 10;
+        %tmp.21 = lt %tmp.19 %tmp.20;
+        bf %tmp.21 @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_131_8_131_38_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_131_8_131_38_if_true:
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_131_21_131_38_start:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 131 23 ]
+        %tmp.22 = "0";
+        %tmp.23 = lgetv %ms.4;
+        symbol [ ms %tmp.23 131 34 36 ];
+        %tmp.24 = add %tmp.22 %tmp.23;
+        lputv %ms.4 %tmp.24;
+        symbol [ ms %ms.4 131 23 25 ];
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_131_21_131_38_stop:
+        goto @C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_131_8_131_38_if_end;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_131_8_131_38_if_end:
+[ "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc" 132 8 ]
+        %tmp.25 = lgetv %hs.3;
+        symbol [ hs %tmp.25 132 15 17 ];
+        %tmp.26 = ":";
+        %tmp.27 = add %tmp.25 %tmp.26;
+        %tmp.28 = lgetv %ms.4;
+        symbol [ ms %tmp.28 132 26 28 ];
+        %tmp.29 = add %tmp.27 %tmp.28;
+        ret %tmp.29;
+C__Users_tobia_Documents_GitHub_sol_garmin_rozvrh_garmin_widget_source_SolRozvrhView_mc_125_30_133_4_stop:
+    }
+}
+[ @file = "C:\Users\tobia\Documents\GitHub\sol-garmin-rozvrh\garmin-widget\source\SolRozvrhView.mc"; @line = 1; ]
+<init> {
+}

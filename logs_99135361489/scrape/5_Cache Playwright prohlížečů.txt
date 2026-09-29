@@ -1,0 +1,12 @@
+﻿2026-09-29T17:44:45.3869637Z ##[group]Run actions/cache@v6
+2026-09-29T17:44:45.3870759Z with:
+2026-09-29T17:44:45.3871605Z   path: ~/.cache/ms-playwright
+2026-09-29T17:44:45.3873337Z   key: playwright-Linux-1e6ae951b5a3436a24f631a5e329260636ecc4421a02ee354694349fa65d7303
+2026-09-29T17:44:45.3875186Z   enableCrossOsArchive: false
+2026-09-29T17:44:45.3876272Z   fail-on-cache-miss: false
+2026-09-29T17:44:45.3877446Z   lookup-only: false
+2026-09-29T17:44:45.3878381Z   save-always: false
+2026-09-29T17:44:45.3879351Z env:
+2026-09-29T17:44:45.3880214Z   DOTNET_ROOT: /usr/share/dotnet
+2026-09-29T17:44:45.3881252Z ##[endgroup]
+2026-09-29T17:44:45.6577534Z Cache not found for input keys: playwright-Linux-1e6ae951b5a3436a24f631a5e329260636ecc4421a02ee354694349fa65d7303

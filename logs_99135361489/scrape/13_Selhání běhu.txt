@@ -1,0 +1,9 @@
+﻿2026-09-29T17:45:55.6689424Z ##[group]Run echo "Scraper skončil s exit kódem 1."
+2026-09-29T17:45:55.6689915Z [36;1mecho "Scraper skončil s exit kódem 1."[0m
+2026-09-29T17:45:55.6690350Z [36;1mexit 1[0m
+2026-09-29T17:45:55.6729645Z shell: /usr/bin/bash -e {0}
+2026-09-29T17:45:55.6730136Z env:
+2026-09-29T17:45:55.6730482Z   DOTNET_ROOT: /usr/share/dotnet
+2026-09-29T17:45:55.6730848Z ##[endgroup]
+2026-09-29T17:45:55.6793960Z Scraper skončil s exit kódem 1.
+2026-09-29T17:45:55.6804873Z ##[error]Process completed with exit code 1.

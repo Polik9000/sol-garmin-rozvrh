@@ -1,0 +1,32 @@
+﻿2026-09-29T17:45:55.6941873Z Post job cleanup.
+2026-09-29T17:45:55.7768130Z [command]/usr/bin/git version
+2026-09-29T17:45:55.7809350Z git version 2.55.0
+2026-09-29T17:45:55.7849338Z Temporarily overriding HOME='/home/runner/work/_temp/09185b53-7ee8-4463-b222-649f3c6e8003' before making global git config changes
+2026-09-29T17:45:55.7850744Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-29T17:45:55.7854826Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/sol-garmin-rozvrh/sol-garmin-rozvrh
+2026-09-29T17:45:55.7886823Z Removing SSH command configuration
+2026-09-29T17:45:55.7892752Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-29T17:45:55.7925953Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-29T17:45:55.8138356Z Removing HTTP extra header
+2026-09-29T17:45:55.8144030Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-29T17:45:55.8175336Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-29T17:45:55.8406647Z Removing includeIf entries pointing to credentials config files
+2026-09-29T17:45:55.8408517Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-29T17:45:55.8445305Z includeif.gitdir:/home/runner/work/sol-garmin-rozvrh/sol-garmin-rozvrh/.git.path
+2026-09-29T17:45:55.8446574Z includeif.gitdir:/home/runner/work/sol-garmin-rozvrh/sol-garmin-rozvrh/.git/worktrees/*.path
+2026-09-29T17:45:55.8447647Z includeif.gitdir:/github/workspace/.git.path
+2026-09-29T17:45:55.8448348Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-29T17:45:55.8454583Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/sol-garmin-rozvrh/sol-garmin-rozvrh/.git.path
+2026-09-29T17:45:55.8479797Z /home/runner/work/_temp/git-credentials-85f969f2-cf71-4878-9ebe-f6f3b19d8c7e.config
+2026-09-29T17:45:55.8489857Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/sol-garmin-rozvrh/sol-garmin-rozvrh/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-85f969f2\-cf71\-4878\-9ebe\-f6f3b19d8c7e\.config
+2026-09-29T17:45:55.8525020Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/sol-garmin-rozvrh/sol-garmin-rozvrh/.git/worktrees/*.path
+2026-09-29T17:45:55.8545397Z /home/runner/work/_temp/git-credentials-85f969f2-cf71-4878-9ebe-f6f3b19d8c7e.config
+2026-09-29T17:45:55.8553923Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/sol-garmin-rozvrh/sol-garmin-rozvrh/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-85f969f2\-cf71\-4878\-9ebe\-f6f3b19d8c7e\.config
+2026-09-29T17:45:55.8595625Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-09-29T17:45:55.8616532Z /github/runner_temp/git-credentials-85f969f2-cf71-4878-9ebe-f6f3b19d8c7e.config
+2026-09-29T17:45:55.8623125Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-85f969f2\-cf71\-4878\-9ebe\-f6f3b19d8c7e\.config
+2026-09-29T17:45:55.8660240Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-29T17:45:55.8685685Z /github/runner_temp/git-credentials-85f969f2-cf71-4878-9ebe-f6f3b19d8c7e.config
+2026-09-29T17:45:55.8694122Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-85f969f2\-cf71\-4878\-9ebe\-f6f3b19d8c7e\.config
+2026-09-29T17:45:55.8728053Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-29T17:45:55.8924897Z Removing credentials config '/home/runner/work/_temp/git-credentials-85f969f2-cf71-4878-9ebe-f6f3b19d8c7e.config'

@@ -1,0 +1,15 @@
+﻿2026-09-29T17:44:45.6674539Z ##[group]Run dotnet build -c Release
+2026-09-29T17:44:45.6675149Z [36;1mdotnet build -c Release[0m
+2026-09-29T17:44:45.6878835Z shell: /usr/bin/bash -e {0}
+2026-09-29T17:44:45.6879471Z env:
+2026-09-29T17:44:45.6879897Z   DOTNET_ROOT: /usr/share/dotnet
+2026-09-29T17:44:45.6880547Z ##[endgroup]
+2026-09-29T17:44:51.2468531Z   Determining projects to restore...
+2026-09-29T17:44:58.0702152Z   Restored /home/runner/work/sol-garmin-rozvrh/sol-garmin-rozvrh/scraper/SolScraper.csproj (in 6.19 sec).
+2026-09-29T17:45:04.6836768Z   SolScraper -> /home/runner/work/sol-garmin-rozvrh/sol-garmin-rozvrh/scraper/bin/Release/net10.0/SolScraper.dll
+2026-09-29T17:45:04.7074304Z 
+2026-09-29T17:45:04.7080914Z Build succeeded.
+2026-09-29T17:45:04.7084224Z     0 Warning(s)
+2026-09-29T17:45:04.7085114Z     0 Error(s)
+2026-09-29T17:45:04.7085464Z 
+2026-09-29T17:45:04.7085771Z Time Elapsed 00:00:15.13
