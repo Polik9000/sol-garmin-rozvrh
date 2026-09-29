@@ -1,0 +1,101 @@
+<!--
+  Testovací fixture pro TimetableParser.Parse. Struktura je odvozená z komentářů
+  a selektorů v TimetableParser.cs / SolSession.cs (#CCADynamicCalendarTable,
+  DctInnerTableType10*, KuvBunkaRozvrh*, KuvHeaderText).
+
+  Den 24.9. (pondělí, "M" současně používá i den 25.9. pro test ResolveDate):
+    - slot 1: běžná hodina "M" / "5.B" / "PCH"
+    - slot 2-3: blok přes colspan=2, "AJ" / "5.B" / "U12"
+    - slot 4: suplující hodina (počítá se) "TV" / "5.B" / "TEL"
+
+  Den 25.9. (úterý):
+    - slot 1: suplovaná/odpadlá hodina (zahodit) - nesmí se objevit ve výstupu
+    - slot 2: neznámá třída buňky (WARN + přeskočit)
+    - slot 3: školní akce (zahodit)
+    - slot 4: běžná hodina "CJ" / "5.B" / "U5" (bez učebny v textu -> jen třída)
+-->
+<table id="CCADynamicCalendarTable">
+  <tr class="RowHeader">
+    <th>&nbsp;</th>
+    <th><div class="KuvHeaderText">8:00 - 8:45</div></th>
+    <th><div class="KuvHeaderText">8:50 - 9:35</div></th>
+    <th><div class="KuvHeaderText">9:45 - 10:30</div></th>
+    <th><div class="KuvHeaderText">10:40 - 11:25</div></th>
+  </tr>
+  <tr class="RowOdd">
+    <th rowspan="1"><div class="KuvHeaderText">24.9. pondělí</div></th>
+    <td>
+      <table class="DctInnerTableType10">
+        <tr>
+          <td id="B1S1" class="DctInnerTableType10DataTD">
+            <div class="KuvBunkaRozvrhNadpis">M</div>
+            <div class="KuvBunkaRozvrhText">5.B<br>PCH</div>
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td colspan="2">
+      <table class="DctInnerTableType10">
+        <tr>
+          <td id="B1S2" class="DctInnerTableType10DataTD">
+            <div class="KuvBunkaRozvrhNadpis">AJ</div>
+            <div class="KuvBunkaRozvrhText">5.B<br>U12</div>
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <table class="DctInnerTableType10">
+        <tr>
+          <td id="B1S4" class="KuvSuplujiciHodina">
+            <div class="KuvBunkaRozvrhNadpis">TV</div>
+            <div class="KuvBunkaRozvrhText">5.B<br>TEL</div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr class="RowEven">
+    <th rowspan="1"><div class="KuvHeaderText">25.9. úterý</div></th>
+    <td>
+      <table class="DctInnerTableType10">
+        <tr>
+          <td id="B2S1" class="KuvSuplovanaHodina">
+            <div class="KuvBunkaRozvrhNadpis">FY</div>
+            <div class="KuvBunkaRozvrhText">5.B<br>PCH</div>
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <table class="DctInnerTableType10">
+        <tr>
+          <td id="B2S2" class="KuvNeznamaTrida">
+            <div class="KuvBunkaRozvrhNadpis">??</div>
+            <div class="KuvBunkaRozvrhText">5.B<br>???</div>
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <table class="DctInnerTableType10">
+        <tr>
+          <td id="B2S3" class="KuvSkolniAkceHodina">
+            <div class="KuvBunkaRozvrhNadpis">Výlet</div>
+            <div class="KuvBunkaRozvrhText">5.B<br></div>
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <table class="DctInnerTableType10">
+        <tr>
+          <td id="B2S4" class="DctInnerTableType10DataTD">
+            <div class="KuvBunkaRozvrhNadpis">CJ</div>
+            <div class="KuvBunkaRozvrhText">5.B<br>U5</div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

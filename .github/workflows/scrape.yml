@@ -1,0 +1,150 @@
+name: Scrape ŠOL rozvrh
+
+on:
+  schedule:
+    # UTC 5-13 pokrývá lokální 7:00-14:00 pro CET i CEST s rezervou;
+    # přesný filtr dělá job "gate" podle skutečného pražského času.
+    - cron: '0,30 5-13 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Spustit i mimo okno 7:00-14:00 (Europe/Prague)'
+        type: boolean
+        default: false
+
+concurrency:
+  group: sol-scrape-publish
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.check.outputs.run }}
+    steps:
+      - id: check
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force }}" = "true" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          dow=$(TZ=Europe/Prague date +%u)     # 1=Po … 7=Ne
+          h=$(TZ=Europe/Prague date +%-H)      # bez vedoucí nuly, viz architektura
+          m=$(TZ=Europe/Prague date +%-M)
+          mins=$((h * 60 + m))
+          if [ "$dow" -le 5 ] && [ "$mins" -ge 420 ] && [ "$mins" -le 840 ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  scrape:
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Cache NuGet balíčků
+        uses: actions/cache@v6
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('scraper/SolScraper.csproj') }}
+
+      - name: Cache Playwright prohlížečů
+        id: pw-cache
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('scraper/SolScraper.csproj') }}
+
+      - name: Sestavit scraper
+        working-directory: scraper
+        run: dotnet build -c Release
+
+      # Systémové .so knihovny žijí v OS runneru, který je při každém běhu čerstvý -
+      # instalují se proto vždy, nezávisle na cache (ta drží jen binárku prohlížeče).
+      - name: Instalovat systémové závislosti Chromia
+        working-directory: scraper
+        run: pwsh bin/Release/net10.0/playwright.ps1 install-deps chromium
+
+      - name: Stáhnout Chromium (cache miss)
+        if: steps.pw-cache.outputs.cache-hit != 'true'
+        working-directory: scraper
+        run: pwsh bin/Release/net10.0/playwright.ps1 install chromium
+
+      - name: Spustit scraper
+        id: run
+        working-directory: scraper
+        env:
+          SOL_USER: ${{ secrets.SOL_USER }}
+          SOL_PASS: ${{ secrets.SOL_PASS }}
+          SOL_OUT: out/rozvrh.json
+          SOL_TIMETABLE_URL: ${{ vars.SOL_TIMETABLE_URL }}
+          SOL_AUTO_CONSENT: ${{ vars.SOL_AUTO_CONSENT }}
+        run: |
+          set +e
+          dotnet bin/Release/net10.0/SolScraper.dll
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Publikovat do gh-pages
+        if: steps.run.outputs.exit_code == '0'
+        run: |
+          git config user.name "sol-scraper[bot]"
+          git config user.email "sol-scraper-bot@users.noreply.github.com"
+
+          if git fetch origin gh-pages:gh-pages 2>/dev/null; then
+            git worktree add gh-pages-wt gh-pages
+          else
+            git worktree add --orphan gh-pages gh-pages-wt
+          fi
+
+          cp scraper/out/rozvrh.json gh-pages-wt/rozvrh.json
+          touch gh-pages-wt/.nojekyll   # jinak Pages spustí Jekyll build nad JSONem
+
+          cd gh-pages-wt
+          git add rozvrh.json .nojekyll
+          if git diff --cached --quiet; then
+            echo "Rozvrh beze změny, commit se přeskakuje."
+          else
+            git commit -q -m "rozvrh: $(TZ=Europe/Prague date '+%Y-%m-%d %H:%M %Z')"
+            git push origin gh-pages
+          fi
+
+      - name: Deaktivovat workflow po zamítnutí přihlašovacích údajů
+        if: steps.run.outputs.exit_code == '2'
+        run: |
+          WORKFLOW_FILE=$(echo "${{ github.workflow_ref }}" | sed -E 's#.*/workflows/([^@]+)@.*#\1#')
+          curl -sS -f -X PUT \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/${WORKFLOW_FILE}/disable"
+          echo "::error::SOL_PASS zamítnuto ŠOL. Riziko zámku účtu - workflow deaktivován. Oprav secret a zapni ho ručně v záložce Actions."
+
+      - name: Nahrát debug výstupy
+        if: steps.run.outputs.exit_code != '0'
+        uses: actions/upload-artifact@v7
+        with:
+          name: sol-debug-${{ github.run_id }}
+          path: scraper/debug/
+          if-no-files-found: ignore
+          retention-days: 5
+
+      - name: Selhání běhu
+        if: steps.run.outputs.exit_code != '0'
+        run: |
+          echo "Scraper skončil s exit kódem ${{ steps.run.outputs.exit_code }}."
+          exit 1

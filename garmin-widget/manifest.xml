@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<iq:manifest xmlns:iq="http://www.garmin.com/xml/connectiq" version="3">
+  <!-- id vygeneruje VS Code wizard při "Garmin: Create New Project" - nepiš si vlastní -->
+  <iq:application entry="SolRozvrhApp" id="d3d53337-b6a3-49d5-8096-2eee2bbbb705" launcherIcon="@Drawables.LauncherIcon"
+                   minSdkVersion="3.0.0" name="@Strings.AppName" type="widget" version="1.0.0">
+    <iq:products>
+      <iq:product id="fenix5plus"/>
+    </iq:products>
+    <iq:permissions>
+      <iq:uses-permission id="Communications"/>
+    </iq:permissions>
+    <!-- Texty jsou natvrdo česky přímo ve zdrojácích (viz source/), Rez.Strings/lokalizace
+         se nepoužívá - tenhle tag proto na zobrazený jazyk nemá vliv. -->
+    <iq:languages>
+      <iq:language>eng</iq:language>
+    </iq:languages>
+  </iq:application>
+</iq:manifest>
