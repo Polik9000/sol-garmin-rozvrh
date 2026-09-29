@@ -27,6 +27,7 @@ try
         var user = Env("SOL_USER");
         var pass = Env("SOL_PASS");
         if (user == "" || pass == "") { Log.Warn("Chybí SOL_USER / SOL_PASS."); return ExitCodes.Config; }
+        Log.Info("DIAG: start scrapingu (limit 4 min)...");
         // Tvrdý strop na celý běh. WaitAsync úlohu neruší, jen přestane čekat; proces skončí a driver zabije Chromium.
         html = await ScrapeWithRetryAsync(user, pass).WaitAsync(TimeSpan.FromMinutes(4));
     }
@@ -87,13 +88,16 @@ static async Task<string> ScrapeWithRetryAsync(string user, string pass)
     {
         try
         {
+            Log.Info($"DIAG: pokus {attempt}/{maxAttempts} – spouštím prohlížeč...");
             // Nový prohlížeč na každý pokus: po pádu/zaseknutí Chromia nesdílíme poškozený stav.
             await using var session = await SolSession.StartAsync(new(
                 TimetableUrl: Env("SOL_TIMETABLE_URL", SolSession.DefaultTimetableUrl),
                 DebugDir: Env("SOL_DEBUG_DIR", "debug"),
                 AutoConsent: Env("SOL_AUTO_CONSENT", "1") != "0",
                 Headless: Env("HEADED") != "1"));
+            Log.Info($"DIAG: pokus {attempt} – prohlížeč běží, přihlašuji...");
             await session.LoginAsync(user, pass);
+            Log.Info($"DIAG: pokus {attempt} – přihlášeno, stahuji rozvrh...");
             return await session.FetchTimetableHtmlAsync();
         }
         // Opakujeme jen přechodné chyby. CredentialsRejected / ManualAction / ParseFailure propadnou hned.

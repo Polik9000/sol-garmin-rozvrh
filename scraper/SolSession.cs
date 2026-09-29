@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Microsoft.Playwright;
 
@@ -72,6 +73,7 @@ public sealed class SolSession : IAsyncDisposable
         // už před odesláním, nelze na ni spoléhat a rozhoduje jen URL + timeout.
         var errBefore = await IsVisibleSafeAsync(".tm-error");
         await _page.Locator("#btnLogin").ClickAsync();
+        Log.Info("DIAG: formulář odeslán, čekám na přesměrování (max 30 s)...");
 
         // Polling místo RunAndWaitForNavigationAsync (deprecated, racy). Neúspěšný login je POST na tutéž URL,
         // takže WaitForURL by neúspěch nepoznal – rozlišujeme "URL opustila Prihlaseni.aspx" vs. "chybová hláška".
@@ -94,6 +96,7 @@ public sealed class SolSession : IAsyncDisposable
     {
         for (var attempt = 1; attempt <= 3; attempt++)
         {
+            Log.Info($"DIAG: rozvrh pokus {attempt}/3 – navigace na {PathOnly(_o.TimetableUrl)}...");
             await GoToAsync(_o.TimetableUrl);
             if (await WaitForTableAsync(attempt == 1 ? 20 : 10)) return await ReadStableTableHtmlAsync();
 
@@ -109,18 +112,25 @@ public sealed class SolSession : IAsyncDisposable
 
     private async Task<bool> WaitForTableAsync(int seconds)
     {
+        var sw = Stopwatch.StartNew();
         try
         {
             // Čekáme na řádek dne, ne jen na <table>: kostra tabulky může existovat dřív než data (asynchronní plnění).
             await _page.Locator($"{Table} tr.RowOdd, {Table} tr.RowEven").First
                 .WaitForAsync(new() { State = WaitForSelectorState.Attached, Timeout = seconds * 1000 });
+            Log.Info($"DIAG: WaitForTableAsync nalezeno za {sw.ElapsedMilliseconds} ms");
             return true;
         }
-        catch (PlaywrightException) { return false; } // TimeoutException je potomek PlaywrightException
+        catch (PlaywrightException) // TimeoutException je potomek PlaywrightException
+        {
+            Log.Info($"DIAG: WaitForTableAsync timeout po {sw.ElapsedMilliseconds} ms (limit {seconds * 1000} ms)");
+            return false;
+        }
     }
 
     private async Task<string> ReadStableTableHtmlAsync()
     {
+        var sw = Stopwatch.StartNew();
         // Dvě po sobě shodná čtení = DOM se přestal měnit. Levnější a spolehlivější než NetworkIdle.
         var table = _page.Locator(Table);
         string? prev = null;
@@ -128,10 +138,15 @@ public sealed class SolSession : IAsyncDisposable
         while (DateTime.UtcNow < deadline)
         {
             var html = await table.EvaluateAsync<string>("e => e.outerHTML");
-            if (html == prev) return html;
+            if (html == prev)
+            {
+                Log.Info($"DIAG: ReadStableTableHtmlAsync stabilní za {sw.ElapsedMilliseconds} ms");
+                return html;
+            }
             prev = html;
             await Task.Delay(500);
         }
+        Log.Info($"DIAG: ReadStableTableHtmlAsync nestabilní i po {sw.ElapsedMilliseconds} ms, vracím poslední stav");
         return prev!; // nestabilní: vracíme poslední stav, případnou nekonzistenci odhalí parser
     }
 
@@ -208,7 +223,9 @@ public sealed class SolSession : IAsyncDisposable
 
     private async Task GoToAsync(string url)
     {
+        var sw = Stopwatch.StartNew();
         var resp = await _page.GotoAsync(url, new() { WaitUntil = WaitUntilState.DOMContentLoaded });
+        Log.Info($"DIAG: GoToAsync({PathOnly(url)}) za {sw.ElapsedMilliseconds} ms, HTTP {resp?.Status.ToString() ?? "?"}");
         if (resp is { Ok: false }) throw new TransientScrapeException($"HTTP {resp.Status} pro {PathOnly(url)}");
     }
 
