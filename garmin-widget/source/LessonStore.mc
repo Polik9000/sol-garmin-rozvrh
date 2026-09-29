@@ -143,8 +143,22 @@ class LessonStore {
     function entryCount() { return _dates.size(); }
     function status() { return _status; }
     function lastFetch() { return _lastFetch; }
+    function dateAt(i) { return _dates[i]; }
     function nameAt(i) { return _names[i]; }
     function roomAt(i) { return _rooms[i]; }
     function startAt(i) { return _starts[i]; }
     function endAt(i) { return _ends[i]; }
+
+    // Sudý/lichý týden apod.: dvě hodiny ve stejný čas téhož dne (sousední indexy
+    // díky řazení podle (d,s)). Vrátí index té druhé, nebo -1.
+    function pairedIndex(i) {
+        if (i == -1) { return -1; }
+        if (i > 0 && _dates[i - 1] == _dates[i] && _starts[i - 1] == _starts[i]) {
+            return i - 1;
+        }
+        if (i + 1 < _dates.size() && _dates[i + 1] == _dates[i] && _starts[i + 1] == _starts[i]) {
+            return i + 1;
+        }
+        return -1;
+    }
 }

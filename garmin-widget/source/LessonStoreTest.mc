@@ -40,3 +40,24 @@ function testCompactEmpty(logger) {
     }
     return true;
 }
+
+(:test)
+function testPairedIndex(logger) {
+    var store = new LessonStore();
+    var data = [
+        { "d" => 20260930, "n" => "Bicv", "u" => "LBi", "s" => "08:00", "e" => "09:35" },
+        { "d" => 20260930, "n" => "Fcv", "u" => "LF", "s" => "08:00", "e" => "09:35" },
+        { "d" => 20260930, "n" => "D", "u" => "6.C", "s" => "09:45", "e" => "10:30" },
+    ];
+    store.compact(data);
+
+    if (store.pairedIndex(0) != 1 || store.pairedIndex(1) != 0) {
+        logger.debug("pairedIndex pro souběžnou dvojici selhalo: " + store.pairedIndex(0) + "/" + store.pairedIndex(1));
+        return false;
+    }
+    if (store.pairedIndex(2) != -1) {
+        logger.debug("pairedIndex(2) mělo být -1, je " + store.pairedIndex(2));
+        return false;
+    }
+    return true;
+}

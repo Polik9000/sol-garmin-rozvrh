@@ -2,3 +2,5 @@
 /gh-pages-wt/
 # Log z lokálně naplánovaného běhu scraperu
 /scraper/run-log.txt
+# Zkompilované .prg a mezivýstupy - buildni si sám (viz README)
+/garmin-widget/bin/
