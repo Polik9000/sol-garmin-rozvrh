@@ -28,7 +28,7 @@ Log "=== start ==="
 Import-Module CredentialManager
 $cred = Get-StoredCredential -Target "SOL-Scraper"
 if (-not $cred) {
-    Log "CHYBA: uložené přihlašovací údaje 'SOL-Scraper' nenalezeny v Credential Manageru."
+    Log "CHYBA: ulozene prihlasovaci udaje 'SOL-Scraper' nenalezeny v Credential Manageru."
     exit 1
 }
 
@@ -44,7 +44,7 @@ $env:WSLENV = "SOL_USER:SOL_PASS:HEADED"
 try {
     # cmd /c slučuje stderr/stdout na úrovni OS - obchází PS 5.1 quirk, kdy '2>&1' na
     # nativním procesu s $ErrorActionPreference=Stop přeruší skript na první řádce stderr.
-    $output = & cmd /c "wsl -d Ubuntu -u tobia --cd $WslProject -- dotnet run 2>&1"
+    $output = & cmd /c "chcp 65001 >NUL && wsl -d Ubuntu -u tobia --cd $WslProject -- dotnet run 2>&1"
     $exitCode = $LASTEXITCODE
     $output | Out-File -Append -FilePath $LogFile -Encoding utf8
 }
@@ -54,7 +54,7 @@ finally {
 }
 
 if ($exitCode -ne 0) {
-    Log "Scraper skončil s kódem $exitCode, publikace se přeskakuje."
+    Log "Scraper skoncil s kodem $exitCode, publikace se preskakuje."
     exit $exitCode
 }
 
@@ -64,7 +64,7 @@ $jsonTmpWsl = "$(ToWslPath $RepoRoot)/rozvrh.new.json"
 wsl -d Ubuntu -u tobia -- cp "$WslProject/out/rozvrh.json" $jsonTmpWsl 2>&1 | Out-File -Append -FilePath $LogFile -Encoding utf8
 
 if (-not (Test-Path $jsonTmp)) {
-    Log "CHYBA: rozvrh.json se nepodařilo zkopírovat z WSL."
+    Log "CHYBA: rozvrh.json se nepodarilo zkopirovat z WSL."
     exit 1
 }
 
@@ -101,9 +101,9 @@ $hasDiff = ($LASTEXITCODE -ne 0)
 if ($hasDiff) {
     git commit -q -m "rozvrh: $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
     git push origin gh-pages 2>&1 | Out-File -Append -FilePath $LogFile -Encoding utf8
-    Log "Publikováno."
+    Log "Publikovano."
 } else {
-    Log "Rozvrh beze změny, commit se přeskakuje."
+    Log "Rozvrh beze zmeny, commit se preskakuje."
 }
 
 Set-Location $RepoRoot
