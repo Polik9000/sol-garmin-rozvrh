@@ -96,9 +96,15 @@ Alternativně `wsl openssl rand -hex 16`. Tentýž klíč patří na tři místa
    - GitHub: Settings → Secrets and variables → Actions → `SOL_AES_KEY`
    - Hodinky: Garmin Connect → Zařízení → Aplikace Connect IQ → SOL Rozvrh → Nastavení →
      „AES klic“. Funguje jen pro aplikaci nainstalovanou ze Storu (stačí soukromá beta).
-     U sideloadu `.prg` Garmin Connect nastavení nenabídne: nastav `aesKey` v simulátoru
-     (editor Application.Properties) a vygenerovaný `.SET` soubor zkopíruj na hodinky do
-     `GARMIN/APPS/SETTINGS/` (název musí odpovídat `.prg`; postup ověř v aktuální verzi SDK).
+     **Sideload `.prg` přes kabel** (Garmin Connect nastavení nenabídne): klíč se zapeče do
+     buildu ze souboru `garmin-widget/source/Secret.mc`, který je v `.gitignore`:
+     ```powershell
+     $k = (Get-StoredCredential -Target SOL-AES-Key).GetNetworkCredential().Password
+     "const AES_KEY_HEX = ""$k"";" | Set-Content garmin-widget\source\Secret.mc -Encoding ascii
+     ```
+     Pak build a nahrát `.prg` do `GARMIN/APPS/` jako dosud. Bez `Secret.mc` build selže na
+     nedefinovaném `AES_KEY_HEX` (vzor: `Secret.mc.example`). Takový `.prg` obsahuje klíč -
+     nesdílet a nenahrávat do Storu.
    - Po nasazení ověř v simulátoru `monkeydo … /t` (test `testDecryptVector`) a na
      hodinkách, že widget neukazuje „Chybí krypto“ ani „Špatný klíč“.
 

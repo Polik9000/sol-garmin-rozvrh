@@ -4,3 +4,5 @@
 /scraper/run-log.txt
 # Zkompilované .prg a mezivýstupy - buildni si sám (viz README)
 /garmin-widget/bin/
+# AES klíč zapečený do buildu widgetu (viz README "Zabezpečení") - NIKDY necommitovat
+/garmin-widget/source/Secret.mc

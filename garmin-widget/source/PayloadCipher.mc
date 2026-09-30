@@ -15,9 +15,14 @@ module PayloadCipher {
         return (Toybox has :Cryptography);
     }
 
-    // 32 hex znaků z nastavení aplikace (Garmin Connect / .SET soubor) -> 16B ByteArray, jinak null.
+    // 32 hex znaků -> 16B ByteArray, jinak null. Přednost má nastavení aplikace (Garmin Connect,
+    // jen pro instalaci ze Storu); jinak klíč zapečený při buildu v source/Secret.mc (sideload
+    // přes kabel, soubor je v .gitignore - viz README).
     function keyFromSettings() {
         var hex = Props.getValue(KEY_PROPERTY);
+        if (!(hex instanceof Lang.String) || hex.length() != 32) {
+            hex = $.AES_KEY_HEX; // globální konstanta ze source/Secret.mc
+        }
         if (!(hex instanceof Lang.String) || hex.length() != 32) {
             return null;
         }
