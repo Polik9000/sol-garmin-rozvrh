@@ -9,9 +9,11 @@ class SolRozvrhDelegate extends Ui.BehaviorDelegate {
         _view = view;
     }
 
-    // Select/Enter na widgetu vynutí fetch bez ohledu na TTL cache.
+    // START na widgetu otevře detailní scrollovatelný rozvrh (jako u vestavěných
+    // widgetů). Vynucený refresh je teď START uvnitř detailu.
     function onSelect() {
-        _view.forceRefresh();
+        var detail = new ScheduleView(_view);
+        Ui.pushView(detail, new ScheduleDelegate(detail), Ui.SLIDE_LEFT);
         return true;
     }
 }

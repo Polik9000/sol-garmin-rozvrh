@@ -161,4 +161,31 @@ class LessonStore {
         }
         return -1;
     }
+
+    // Sudý/lichý týden - dvě souběžné hodiny ve stejný čas se zobrazí jako "A/B".
+    function combinedName(i) {
+        var p = pairedIndex(i);
+        if (p == -1) { return _names[i]; }
+        var a = i < p ? i : p;
+        var b = i < p ? p : i;
+        return _names[a] + "/" + _names[b];
+    }
+
+    function combinedRoom(i) {
+        var p = pairedIndex(i);
+        if (p == -1) { return _rooms[i]; }
+        var a = i < p ? i : p;
+        var b = i < p ? p : i;
+        return _rooms[a] + "/" + _rooms[b];
+    }
+}
+
+function minutesToHHMM(m) {
+    var h = m / 60;
+    var mm = m % 60;
+    var hs = h.toString();
+    if (h < 10) { hs = "0" + hs; }
+    var ms = mm.toString();
+    if (mm < 10) { ms = "0" + ms; }
+    return hs + ":" + ms;
 }

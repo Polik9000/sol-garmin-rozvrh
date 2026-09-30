@@ -39,6 +39,10 @@ class SolRozvrhView extends Ui.View {
         _store.fetch();
     }
 
+    function store() {
+        return _store;
+    }
+
     function onUpdate(dc) {
         dc.setColor(Gfx.COLOR_BLACK, Gfx.COLOR_WHITE);
         dc.clear();
@@ -61,7 +65,7 @@ class SolRozvrhView extends Ui.View {
             dc.drawText(cx, cy - 60, Gfx.FONT_MEDIUM, "volno", Gfx.TEXT_JUSTIFY_CENTER);
         } else {
             dc.drawText(cx, cy - 63, Gfx.FONT_MEDIUM,
-                combinedName(cur) + "  " + combinedRoom(cur), Gfx.TEXT_JUSTIFY_CENTER);
+                _store.combinedName(cur) + "  " + _store.combinedRoom(cur), Gfx.TEXT_JUSTIFY_CENTER);
             dc.drawText(cx, cy - 34, Gfx.FONT_TINY,
                 minutesToHHMM(_store.startAt(cur)) + "-" + minutesToHHMM(_store.endAt(cur)),
                 Gfx.TEXT_JUSTIFY_CENTER);
@@ -74,30 +78,13 @@ class SolRozvrhView extends Ui.View {
             dc.drawText(cx, cy + 20, Gfx.FONT_SMALL, "nic dalšího", Gfx.TEXT_JUSTIFY_CENTER);
         } else {
             dc.drawText(cx, cy + 20, Gfx.FONT_MEDIUM,
-                combinedName(nxt) + "  " + combinedRoom(nxt), Gfx.TEXT_JUSTIFY_CENTER);
+                _store.combinedName(nxt) + "  " + _store.combinedRoom(nxt), Gfx.TEXT_JUSTIFY_CENTER);
             dc.drawText(cx, cy + 48, Gfx.FONT_TINY, minutesToHHMM(_store.startAt(nxt)),
                 Gfx.TEXT_JUSTIFY_CENTER);
         }
 
         dc.drawText(cx, cy + 70, Gfx.FONT_XTINY, syncStatusText(),
             Gfx.TEXT_JUSTIFY_CENTER);
-    }
-
-    // Sudý/lichý týden - dvě souběžné hodiny ve stejný čas se zobrazí jako "A/B".
-    function combinedName(i) {
-        var p = _store.pairedIndex(i);
-        if (p == -1) { return _store.nameAt(i); }
-        var a = i < p ? i : p;
-        var b = i < p ? p : i;
-        return _store.nameAt(a) + "/" + _store.nameAt(b);
-    }
-
-    function combinedRoom(i) {
-        var p = _store.pairedIndex(i);
-        if (p == -1) { return _store.roomAt(i); }
-        var a = i < p ? i : p;
-        var b = i < p ? p : i;
-        return _store.roomAt(a) + "/" + _store.roomAt(b);
     }
 
     function firstRunMessage() {
@@ -135,15 +122,5 @@ class SolRozvrhView extends Ui.View {
             return "žádná data";
         }
         return "sync " + age;
-    }
-
-    function minutesToHHMM(m) {
-        var h = m / 60;
-        var mm = m % 60;
-        var hs = h.toString();
-        if (h < 10) { hs = "0" + hs; }
-        var ms = mm.toString();
-        if (mm < 10) { ms = "0" + ms; }
-        return hs + ":" + ms;
     }
 }
