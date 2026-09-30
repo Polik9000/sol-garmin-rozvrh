@@ -68,8 +68,12 @@ hodinky ──makeWebRequest(JSON)──► Dictionary ─► base64 → ByteArr
   Úplné odstranění = požádat GitHub Support o vymazání cache (odkaz na repo +
   informace, že šlo o osobní údaje).
 
-**Klíč:** `openssl rand -hex 16` (nebo `python -c "import secrets;print(secrets.token_hex(16))"`),
-32 hex znaků. Tentýž klíč patří na tři místa: Credential Manager / GitHub secret / hodinky.
+**Klíč** (32 hex znaků), Windows PowerShell bez openssl:
+```powershell
+$b = New-Object byte[] 16; [Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($b)
+$key = ($b | ForEach-Object { $_.ToString('x2') }) -join ''
+```
+Alternativně `wsl openssl rand -hex 16`. Tentýž klíč patří na tři místa: Credential Manager / GitHub secret / hodinky.
 
 ## Co je hotové
 
@@ -88,7 +92,7 @@ hodinky ──makeWebRequest(JSON)──► Dictionary ─► base64 → ByteArr
 ## Co chybí doplnit
 
 0. **AES klíč** (viz „Zabezpečení“):
-   - Windows: `New-StoredCredential -Target SOL-AES-Key -UserName aes -Password <32hex> -Persist LocalMachine`
+   - Windows: `New-StoredCredential -Target SOL-AES-Key -UserName aes -Password $key -Persist LocalMachine`
    - GitHub: Settings → Secrets and variables → Actions → `SOL_AES_KEY`
    - Hodinky: Garmin Connect → Zařízení → Aplikace Connect IQ → SOL Rozvrh → Nastavení →
      „AES klic“. Funguje jen pro aplikaci nainstalovanou ze Storu (stačí soukromá beta).
