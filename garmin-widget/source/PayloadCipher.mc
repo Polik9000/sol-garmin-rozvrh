@@ -15,9 +15,23 @@ module PayloadCipher {
         return (Toybox has :Cryptography);
     }
 
-    // 32 hex znaků z nastavení aplikace (Garmin Connect / .SET soubor) -> 16B ByteArray, jinak null.
+    // Sideload (mimo Connect IQ Store) nemá Garmin Connect App Settings sync - ověřeno
+    // v simulátoru, "Trigger App Settings" v menu Simulation jen simuluje push uvnitř
+    // simulátoru, nic nejde exportovat na reálné zařízení. Fallback: soubor
+    // garmin-widget/source/Secret.mc (v .gitignore, NIKDY necommitovat!) s obsahem
+    // `const AES_KEY_HEX = "<32 hex znaků>";`. Bez něj build selže (undefined symbol) -
+    // záměrně: je to čistě osobní build bez distribuce, ne chyba k opravě.
+    function localFallbackHex() {
+        return AES_KEY_HEX;
+    }
+
+    // 32 hex znaků z nastavení aplikace (Garmin Connect), jinak lokální fallback
+    // (sideload nemá App Settings sync - viz localFallbackHex) -> 16B ByteArray, jinak null.
     function keyFromSettings() {
         var hex = Props.getValue(KEY_PROPERTY);
+        if (!(hex instanceof Lang.String) || hex.length() != 32) {
+            hex = localFallbackHex();
+        }
         if (!(hex instanceof Lang.String) || hex.length() != 32) {
             return null;
         }

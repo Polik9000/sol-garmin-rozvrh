@@ -87,16 +87,19 @@ hodinky ──makeWebRequest(JSON)──► Dictionary ─► base64 → ByteArr
 
 ## Co chybí doplnit
 
-0. **AES klíč** (viz „Zabezpečení“):
+0. **AES klíč** (viz „Zabezpečení”):
    - Windows: `New-StoredCredential -Target SOL-AES-Key -UserName aes -Password <32hex> -Persist LocalMachine`
    - GitHub: Settings → Secrets and variables → Actions → `SOL_AES_KEY`
-   - Hodinky: Garmin Connect → Zařízení → Aplikace Connect IQ → SOL Rozvrh → Nastavení →
-     „AES klic“. Funguje jen pro aplikaci nainstalovanou ze Storu (stačí soukromá beta).
-     U sideloadu `.prg` Garmin Connect nastavení nenabídne: nastav `aesKey` v simulátoru
-     (editor Application.Properties) a vygenerovaný `.SET` soubor zkopíruj na hodinky do
-     `GARMIN/APPS/SETTINGS/` (název musí odpovídat `.prg`; postup ověř v aktuální verzi SDK).
+   - Hodinky (sideload, ne Store): Garmin Connect App Settings **nefunguje pro sideloadované
+     `.prg`** - ověřeno (v simulátoru se dá nastavení jen simulovat přes Simulation →
+     “Trigger App Settings”, nic z toho nejde exportovat na reálné zařízení). Místo toho:
+     `garmin-widget/source/Secret.mc` (v `.gitignore`, **nikdy necommitovat**) s obsahem
+     `const AES_KEY_HEX = “<32 hex znaků>”;` - `PayloadCipher.localFallbackHex()` ho použije,
+     když `Properties.aesKey` není nastavené. Klíč se tak zakompiluje přímo do `.prg` při
+     buildu, nikdy neprochází gitem ani Garmin Connect. Bez `Secret.mc` build selže
+     (undefined symbol) - to je záměr pro čistě osobní/nedistribuovaný build.
    - Po nasazení ověř v simulátoru `monkeydo … /t` (test `testDecryptVector`) a na
-     hodinkách, že widget neukazuje „Chybí krypto“ ani „Špatný klíč“.
+     hodinkách, že widget neukazuje „Chybí krypto” ani „Špatný klíč”.
 
 1. **Windows Task Scheduler úloha** na tomhle PC (Victus 15) - trigger
    Po-Pá 7:00-14:00 opakovaně každých 30 min, akce = spustit
