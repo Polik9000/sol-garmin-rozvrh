@@ -16,9 +16,21 @@ try
     var today = PragueToday();
     var outPath = Env("SOL_OUT", "out/rozvrh.json");
     var parseIdx = Array.IndexOf(args, "--parse");
+    var offline = parseIdx >= 0 && parseIdx + 1 < args.Length;
+
+    // Výstup jde na veřejné GitHub Pages -> v ostrém režimu bez klíče nic nezapisujeme.
+    // Offline (--parse) bez klíče zapíše plaintext JSON pro ladění parseru.
+    byte[]? aesKey = null;
+    var keyHex = Env("SOL_AES_KEY");
+    if (keyHex != "")
+    {
+        try { aesKey = PayloadCrypto.ParseKey(keyHex); }
+        catch (ArgumentException ex) { Log.Warn(ex.Message); return ExitCodes.Config; }
+    }
+    else if (!offline) { Log.Warn("Chybí SOL_AES_KEY - plaintext rozvrh se nepublikuje."); return ExitCodes.Config; }
 
     string html;
-    if (parseIdx >= 0 && parseIdx + 1 < args.Length)
+    if (offline)
     {
         html = await File.ReadAllTextAsync(args[parseIdx + 1]); // offline režim: bez prohlížeče a bez přihlášení
     }
@@ -46,11 +58,13 @@ try
 
     Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(outPath))!);
     var json = JsonSerializer.Serialize(lessons, jsonOptions);
+    var payload = aesKey != null ? PayloadCrypto.Encrypt(PayloadCrypto.Serialize(lessons), aesKey) : json;
     var tmp = outPath + ".tmp";
-    await File.WriteAllTextAsync(tmp, json);
+    await File.WriteAllTextAsync(tmp, payload);
     File.Move(tmp, outPath, overwrite: true); // temp + move: konzument nikdy neuvidí půl souboru
 
-    Log.Info($"OK: {lessons.Count} hodin, {Encoding.UTF8.GetByteCount(json)} B → {outPath}");
+    Log.Info($"OK: {lessons.Count} hodin, {Encoding.UTF8.GetByteCount(payload)} B → {outPath}"
+        + (aesKey != null ? " (AES-128-CBC)" : " (PLAINTEXT - jen pro ladění)"));
     if (args.Contains("--stdout")) Console.WriteLine(json);
     return ExitCodes.Ok;
 }

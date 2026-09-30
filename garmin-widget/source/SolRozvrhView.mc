@@ -108,6 +108,10 @@ class SolRozvrhView extends Ui.View {
         if (status.equals("error")) {
             return "Chyba sítě";
         }
+        var keyMsg = keyStatusText(status);
+        if (keyMsg != null) {
+            return keyMsg;
+        }
         return "Načítání...";
     }
 
@@ -131,10 +135,22 @@ class SolRozvrhView extends Ui.View {
             if (last != null) { return "chyba sítě (" + age + ")"; }
             return "chyba sítě";
         }
+        var keyMsg = keyStatusText(status);
+        if (keyMsg != null) {
+            return keyMsg;
+        }
         if (last == null) {
             return "žádná data";
         }
         return "sync " + age;
+    }
+
+    // Stavy dešifrování. Krátké - kulatý displej, viz výše.
+    function keyStatusText(status) {
+        if (status.equals("no_key")) { return "Zadej klíč"; }
+        if (status.equals("bad_key")) { return "Špatný klíč"; }
+        if (status.equals("no_crypto")) { return "Chybí krypto"; }
+        return null;
     }
 
     function minutesToHHMM(m) {

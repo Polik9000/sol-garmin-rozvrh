@@ -92,6 +92,8 @@ jobs:
         env:
           SOL_USER: ${{ secrets.SOL_USER }}
           SOL_PASS: ${{ secrets.SOL_PASS }}
+          # Bez klíče scraper skončí s kódem 64 - plaintext se na veřejné Pages nikdy nedostane.
+          SOL_AES_KEY: ${{ secrets.SOL_AES_KEY }}
           SOL_OUT: out/rozvrh.json
           SOL_TIMETABLE_URL: ${{ vars.SOL_TIMETABLE_URL }}
           SOL_AUTO_CONSENT: ${{ vars.SOL_AUTO_CONSENT }}
@@ -107,23 +109,29 @@ jobs:
           git config user.name "sol-scraper[bot]"
           git config user.email "sol-scraper-bot@users.noreply.github.com"
 
-          if git fetch origin gh-pages:gh-pages 2>/dev/null; then
-            git worktree add gh-pages-wt gh-pages
-          else
-            git worktree add --orphan -b gh-pages gh-pages-wt
+          # Pojistka: jen šifrovaná obálka, nikdy plaintext (viz scraper/PayloadCrypto.cs).
+          if ! grep -Eq '^\{"v":1,"iv":"[A-Za-z0-9+/=]{24}","c":"[A-Za-z0-9+/=]+"\}$' scraper/out/rozvrh.json; then
+            echo "::error::rozvrh.json není šifrovaná obálka, publikace zrušena."
+            exit 1
           fi
 
+          # Deterministické IV -> stejný rozvrh = bajtově stejný soubor, commit se přeskočí.
+          if git fetch origin gh-pages 2>/dev/null \
+             && git show FETCH_HEAD:rozvrh.json 2>/dev/null | cmp -s - scraper/out/rozvrh.json; then
+            echo "Rozvrh beze změny, publikace se přeskakuje."
+            exit 0
+          fi
+
+          # gh-pages = vždy jeden orphan commit + force push: veřejné repo by jinak v historii
+          # větve drželo každou verzi rozvrhu.
+          git worktree add --orphan -b gh-pages-publish gh-pages-wt
           cp scraper/out/rozvrh.json gh-pages-wt/rozvrh.json
           touch gh-pages-wt/.nojekyll   # jinak Pages spustí Jekyll build nad JSONem
 
           cd gh-pages-wt
           git add rozvrh.json .nojekyll
-          if git diff --cached --quiet; then
-            echo "Rozvrh beze změny, commit se přeskakuje."
-          else
-            git commit -q -m "rozvrh: $(TZ=Europe/Prague date '+%Y-%m-%d %H:%M %Z')"
-            git push origin gh-pages
-          fi
+          git commit -q -m "rozvrh: $(TZ=Europe/Prague date '+%Y-%m-%d %H:%M %Z')"
+          git push --force origin HEAD:gh-pages
 
       - name: Deaktivovat workflow po zamítnutí přihlašovacích údajů
         if: steps.run.outputs.exit_code == '2'
