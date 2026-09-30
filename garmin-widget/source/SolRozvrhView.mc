@@ -104,11 +104,13 @@ class SolRozvrhView extends Ui.View {
 
     // Vždy popisuje stáří dat, která se skutečně zobrazují - ne jen výsledek
     // posledního pokusu o fetch. Selhaný sync tak nikdy nesmaže platné staré info.
+    // scrapedAt() = kdy scraper reálně stáhl data ze ŠOL, ne kdy si je hodinky stáhly
+    // z GitHub Pages (lastFetch() - ten řídí jen TTL cache, viz needsRefresh()).
     // Krátké zprávy - dlouhý text (např. "Aktualizováno před 6 min") se na kulatém
     // displeji ořízne po stranách, i když se posune nahoru/dolů.
     function syncStatusText() {
         var status = _store.status();
-        var last = _store.lastFetch();
+        var last = _store.scrapedAt();
         var age = "";
         if (last != null) {
             var ageMin = (Time.now().value() - last) / 60;

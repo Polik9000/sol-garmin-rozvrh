@@ -43,6 +43,8 @@ try
         // Tvrdý strop na celý běh. WaitAsync úlohu neruší, jen přestane čekat; proces skončí a driver zabije Chromium.
         html = await ScrapeWithRetryAsync(user, pass).WaitAsync(TimeSpan.FromMinutes(4));
     }
+    // Čas skutečného stažení ze ŠOL (ne čas, kdy si to později stáhnou hodinky z GitHub Pages).
+    var scrapedAt = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
     List<Lesson> lessons;
     try { lessons = TimetableParser.Parse(html, today, Log.Warn); }
@@ -58,7 +60,7 @@ try
 
     Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(outPath))!);
     var json = JsonSerializer.Serialize(lessons, jsonOptions);
-    var payload = aesKey != null ? PayloadCrypto.Encrypt(PayloadCrypto.Serialize(lessons), aesKey) : json;
+    var payload = aesKey != null ? PayloadCrypto.Encrypt(PayloadCrypto.Serialize(lessons, scrapedAt), aesKey) : json;
     var tmp = outPath + ".tmp";
     await File.WriteAllTextAsync(tmp, payload);
     File.Move(tmp, outPath, overwrite: true); // temp + move: konzument nikdy neuvidí půl souboru

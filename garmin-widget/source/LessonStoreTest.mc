@@ -16,8 +16,12 @@ function toBytes(s) {
 (:test)
 function testLoadPlain(logger) {
     var store = new LessonStore();
-    if (!store.loadPlain(toBytes("SOL1,2\n20260929,M,PCH,1600,1700\n20260929,AJ,U12,1700,1745\n"))) {
+    if (!store.loadPlain(toBytes("SOL1,1700000000,2\n20260929,M,PCH,1600,1700\n20260929,AJ,U12,1700,1745\n"))) {
         logger.debug("loadPlain vrátil false");
+        return false;
+    }
+    if (store.scrapedAt() != 1700000000) {
+        logger.debug("scrapedAt() = " + store.scrapedAt() + ", čekáno 1700000000");
         return false;
     }
     if (store.entryCount() != 2) {
@@ -42,7 +46,7 @@ function testLoadPlain(logger) {
 (:test)
 function testLoadPlainEmpty(logger) {
     var store = new LessonStore();
-    if (!store.loadPlain(toBytes("SOL1,0\n")) || store.entryCount() != 0) {
+    if (!store.loadPlain(toBytes("SOL1,1700000000,0\n")) || store.entryCount() != 0) {
         logger.debug("prázdný rozvrh neprošel");
         return false;
     }
@@ -53,12 +57,12 @@ function testLoadPlainEmpty(logger) {
 (:test)
 function testLoadPlainRejectsGarbage(logger) {
     var store = new LessonStore();
-    store.loadPlain(toBytes("SOL1,1\n20260929,M,PCH,1600,1700\n"));
-    if (store.loadPlain(toBytes("xOL1,1\n20260929,M,PCH,1600,1700\n"))) {
+    store.loadPlain(toBytes("SOL1,1700000000,1\n20260929,M,PCH,1600,1700\n"));
+    if (store.loadPlain(toBytes("xOL1,1700000000,1\n20260929,M,PCH,1600,1700\n"))) {
         logger.debug("špatná hlavička prošla");
         return false;
     }
-    if (store.loadPlain(toBytes("SOL1,2\n20260929,M,PCH,1600,1700\n"))) {
+    if (store.loadPlain(toBytes("SOL1,1700000000,2\n20260929,M,PCH,1600,1700\n"))) {
         logger.debug("useknutý záznam prošel");
         return false;
     }
@@ -70,7 +74,8 @@ function testLoadPlainRejectsGarbage(logger) {
 }
 
 // Vektor vygenerovaný stejným algoritmem jako scraper/PayloadCrypto.cs (klíč 000102..0f je
-// veřejný testovací, ne produkční). Ověřuje nativní AES-CBC, base64, UTF-8 ("Čj") i prázdnou učebnu.
+// veřejný testovací, ne produkční). Ověřuje nativní AES-CBC, base64, UTF-8 ("Čj") i prázdnou
+// učebnu a unix čas scrapu v hlavičce.
 (:test)
 function testDecryptVector(logger) {
     if (!PayloadCipher.isSupported()) {
@@ -83,8 +88,8 @@ function testDecryptVector(logger) {
     });
     var envelope = {
         "v" => 1,
-        "iv" => "YSEKm7Foqu46Zc1vlRPdbA==",
-        "c" => "XnGF1NRUZd4xKHjSojIIsEXe1vjp51f/bZWdFF8gxCY8jT0XGAwYRdSkrcvm6CuSVV4rReKO8PlW13+vuYbtwyNHZJ9cyMgY/jeHHaEn9zbXsT4bGmKvvr1wfW7zKBBA"
+        "iv" => "IP8DIy9F2hxogqi/3gZtkA==",
+        "c" => "3iTbEc5X1Rk6nmadcxfrL9WfkbMDCyNmJtphI41YCz18aQJK8PeQuFIAiFDpObeUKnO/2V+5cDv3ncIcYUBM0ugLFyI4Nc8MH7TOWUBPOdAhYsBblk8iAvCRQA/gTvc3"
     };
     var plain = PayloadCipher.decrypt(envelope, key);
     if (plain == null) {
@@ -94,6 +99,10 @@ function testDecryptVector(logger) {
     var store = new LessonStore();
     if (!store.loadPlain(plain) || store.entryCount() != 3) {
         logger.debug("dešifrovaný plaintext neprošel parserem");
+        return false;
+    }
+    if (store.scrapedAt() != 1700000000) {
+        logger.debug("scrapedAt() = " + store.scrapedAt());
         return false;
     }
     if (!store.nameAt(0).equals("Bicv") || !store.nameAt(1).equals("Čj") || !store.roomAt(1).equals("")
@@ -107,7 +116,7 @@ function testDecryptVector(logger) {
 (:test)
 function testPairedIndex(logger) {
     var store = new LessonStore();
-    store.loadPlain(toBytes("SOL1,3\n20260930,Bicv,LBi,0800,0935\n20260930,Fcv,LF,0800,0935\n20260930,D,6.C,0945,1030\n"));
+    store.loadPlain(toBytes("SOL1,1700000000,3\n20260930,Bicv,LBi,0800,0935\n20260930,Fcv,LF,0800,0935\n20260930,D,6.C,0945,1030\n"));
 
     if (store.pairedIndex(0) != 1 || store.pairedIndex(1) != 0) {
         logger.debug("pairedIndex pro souběžnou dvojici selhalo: " + store.pairedIndex(0) + "/" + store.pairedIndex(1));

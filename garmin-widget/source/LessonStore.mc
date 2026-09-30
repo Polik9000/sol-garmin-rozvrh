@@ -18,7 +18,8 @@ class LessonStore {
     var _rooms;
     var _starts;
     var _ends;
-    var _lastFetch;
+    var _lastFetch;  // kdy hodinky naposledy úspěšně stáhly z GitHub Pages (pro TTL cache)
+    var _scrapedAt;  // kdy scraper reálně stáhl data ze ŠOL (pro zobrazení stáří dat uživateli)
     var _status; // "loading" | "ok" | "no_phone" | "error" | "no_key" | "bad_key" | "no_crypto"
 
     function initialize() {
@@ -28,6 +29,7 @@ class LessonStore {
         _starts = [];
         _ends = [];
         _lastFetch = null;
+        _scrapedAt = null;
         _status = "loading";
         loadFromStorage();
     }
@@ -46,6 +48,10 @@ class LessonStore {
         if (t != null) {
             _lastFetch = t;
         }
+        var sc = Store.getValue("scraped");
+        if (sc != null) {
+            _scrapedAt = sc;
+        }
     }
 
     function saveToStorage() {
@@ -56,6 +62,8 @@ class LessonStore {
         });
         Store.deleteValue("sync");
         Store.setValue("sync", _lastFetch);
+        Store.deleteValue("scraped");
+        Store.setValue("scraped", _scrapedAt);
     }
 
     function needsRefresh() {
@@ -110,18 +118,23 @@ class LessonStore {
         return "ok";
     }
 
-    // Formát (viz scraper/PayloadCrypto.cs): "SOL1,<n>\n" + n× "yyyyMMdd,předmět,učebna,HHMM,HHMM\n".
-    // Jeden lineární průchod nad ByteArray, žádný String.find/substring na celém textu.
-    // Konec se řídí počtem záznamů, ne délkou - PKCS7 padding za posledním řádkem se ignoruje.
+    // Formát (viz scraper/PayloadCrypto.cs): "SOL1,<unix čas scrapu>,<n>\n" +
+    // n× "yyyyMMdd,předmět,učebna,HHMM,HHMM\n". Jeden lineární průchod nad ByteArray,
+    // žádný String.find/substring na celém textu. Konec se řídí počtem záznamů, ne
+    // délkou - PKCS7 padding za posledním řádkem se ignoruje.
     function loadPlain(b) {
         var len = b.size();
         // 'S','O','L','1',','
         if (len < 7 || b[0] != 83 || b[1] != 79 || b[2] != 76 || b[3] != 49 || b[4] != 44) {
             return false;
         }
-        var end = scanTo(b, 5, 10);
+        var hdr0 = scanTo(b, 5, 44); // čárka za unix časem scrapu
+        if (hdr0 < 0) { return false; }
+        var epoch = parseNum(b, 5, hdr0);
+        if (epoch < 0) { return false; }
+        var end = scanTo(b, hdr0 + 1, 10);
         if (end < 0) { return false; }
-        var n = parseNum(b, 5, end);
+        var n = parseNum(b, hdr0 + 1, end);
         if (n < 0) { return false; }
         var pos = end + 1;
 
@@ -157,6 +170,7 @@ class LessonStore {
         _rooms = rm;
         _starts = st;
         _ends = en;
+        _scrapedAt = epoch;
         return true;
     }
 
@@ -219,6 +233,7 @@ class LessonStore {
     function entryCount() { return _dates.size(); }
     function status() { return _status; }
     function lastFetch() { return _lastFetch; }
+    function scrapedAt() { return _scrapedAt; }
     function dateAt(i) { return _dates[i]; }
     function nameAt(i) { return _names[i]; }
     function roomAt(i) { return _rooms[i]; }

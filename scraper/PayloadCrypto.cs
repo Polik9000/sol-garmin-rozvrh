@@ -5,9 +5,11 @@ namespace SolScraper;
 
 /// Šifrovaná obálka pro veřejné GitHub Pages. Hodinky neumí parsovat JSON ze stringu, proto:
 ///   obálka  = JSON {"v":1,"iv":b64,"c":b64}  -> parsuje ji nativně Communications (CONTENT_TYPE_JSON)
-///   plaintext = "SOL1,<počet>\n" + "yyyyMMdd,předmět,učebna,HHMM,HHMM\n" * počet
+///   plaintext = "SOL1,<unix čas scrapu>,<počet>\n" + "yyyyMMdd,předmět,učebna,HHMM,HHMM\n" * počet
 /// Plaintext je řádkový formát, který widget projde jedním lineárním průchodem nad ByteArray.
 /// Magický prefix "SOL1" slouží na hodinkách k detekci špatného klíče (CBC s cizím klíčem = šum).
+/// Unix čas scrapu (ne čas stažení hodinkami z GitHub Pages) - widget podle něj ukazuje
+/// "sync stáří" tak, aby odpovídalo skutečnému stáří dat ze ŠOL, ne cache na GitHub Pages.
 public static class PayloadCrypto
 {
     public const int Version = 1;
@@ -22,10 +24,10 @@ public static class PayloadCrypto
         return key;
     }
 
-    public static string Serialize(IReadOnlyList<Lesson> lessons)
+    public static string Serialize(IReadOnlyList<Lesson> lessons, long scrapedAtUnixSeconds)
     {
         var sb = new StringBuilder();
-        sb.Append("SOL1,").Append(lessons.Count).Append('\n');
+        sb.Append("SOL1,").Append(scrapedAtUnixSeconds).Append(',').Append(lessons.Count).Append('\n');
         foreach (var l in lessons)
         {
             sb.Append(l.Date).Append(',')
