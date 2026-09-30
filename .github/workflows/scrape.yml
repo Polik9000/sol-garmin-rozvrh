@@ -94,6 +94,8 @@ jobs:
           SOL_PASS: ${{ secrets.SOL_PASS }}
           # Bez klíče scraper skončí s kódem 64 - plaintext se na veřejné Pages nikdy nedostane.
           SOL_AES_KEY: ${{ secrets.SOL_AES_KEY }}
+          # Volitelné - bez tohohle SentrySdk.Init neběží, scraper funguje dál beze změny.
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           SOL_OUT: out/rozvrh.json
           SOL_TIMETABLE_URL: ${{ vars.SOL_TIMETABLE_URL }}
           SOL_AUTO_CONSENT: ${{ vars.SOL_AUTO_CONSENT }}

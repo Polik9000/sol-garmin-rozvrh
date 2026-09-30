@@ -50,6 +50,9 @@ if (-not $aesCred) {
     Log "CHYBA: AES klic 'SOL-AES-Key' nenalezen v Credential Manageru."
     exit 1
 }
+# Sentry DSN - volitelný, cíl 'SOL-Sentry-DSN' v Credential Manageru. Bez něj scraper
+# jede dál normálně (SentrySdk.Init se jen nezavolá), jen bez monitoringu/error reportingu.
+$sentryCred = Get-StoredCredential -Target "SOL-Sentry-DSN"
 
 # WSLENV = proměnné se předají do WSL prostředí, ne přes argumenty procesu (heslo se tak
 # neobjeví v seznamu procesů / historii příkazů).
@@ -60,6 +63,10 @@ $env:SOL_PASS = $cred.GetNetworkCredential().Password
 $env:HEADED = "1"
 $env:SOL_AES_KEY = $aesCred.GetNetworkCredential().Password
 $env:WSLENV = "SOL_USER:SOL_PASS:SOL_AES_KEY:HEADED"
+if ($sentryCred) {
+    $env:SENTRY_DSN = $sentryCred.GetNetworkCredential().Password
+    $env:WSLENV = "$($env:WSLENV):SENTRY_DSN"
+}
 
 try {
     # cmd /c slučuje stderr/stdout na úrovni OS - obchází PS 5.1 quirk, kdy '2>&1' na
@@ -70,7 +77,7 @@ try {
 }
 finally {
     # Citlivé proměnné pryč z paměti procesu co nejdřív.
-    Remove-Item Env:\SOL_USER, Env:\SOL_PASS, Env:\SOL_AES_KEY, Env:\HEADED, Env:\WSLENV -ErrorAction SilentlyContinue
+    Remove-Item Env:\SOL_USER, Env:\SOL_PASS, Env:\SOL_AES_KEY, Env:\SENTRY_DSN, Env:\HEADED, Env:\WSLENV -ErrorAction SilentlyContinue
 }
 
 if ($exitCode -ne 0) {

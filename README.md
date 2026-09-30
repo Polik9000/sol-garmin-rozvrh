@@ -79,41 +79,53 @@ hodinky ──makeWebRequest(JSON)──► Dictionary ─► base64 → ByteArr
   funguje end-to-end (přihlášení → parse → push do `gh-pages`). Přihlašovací
   údaje jsou ve Windows Credential Manageru (target `SOL-Scraper`), ne v
   souboru. `.github/workflows/scrape.yml` **NEPOUŽÍVÁME** pro ostrý provoz -
-  viz "Klíčová rozhodnutí" proč. Zbývá jen zaregistrovat Windows Task
-  Scheduler úlohu s wake timerem (Po-Pá 7:00-14:00, každých 30 min),
-  co spouští ten skript.
+  viz "Klíčová rozhodnutí" proč. Windows Task Scheduler úloha
+  `SOL-Rozvrh-Scraper` je zaregistrovaná (Po-Pá 7:00-14:00, každých 30 min,
+  wake timer) a běží.
 - **Fáze 3** (`garmin-widget/`): kompletní zdrojový kód widgetu,
   zkompilovaný a otestovaný v Connect IQ simulátoru.
 
 ## Co chybí doplnit
 
-0. **AES klíč** (viz „Zabezpečení”):
-   - Windows: `New-StoredCredential -Target SOL-AES-Key -UserName aes -Password <32hex> -Persist LocalMachine`
-   - GitHub: Settings → Secrets and variables → Actions → `SOL_AES_KEY`
-   - Hodinky (sideload, ne Store): Garmin Connect App Settings **nefunguje pro sideloadované
-     `.prg`** - ověřeno (v simulátoru se dá nastavení jen simulovat přes Simulation →
-     “Trigger App Settings”, nic z toho nejde exportovat na reálné zařízení). Místo toho:
-     `garmin-widget/source/Secret.mc` (v `.gitignore`, **nikdy necommitovat**) s obsahem
-     `const AES_KEY_HEX = “<32 hex znaků>”;` - `PayloadCipher.localFallbackHex()` ho použije,
-     když `Properties.aesKey` není nastavené. Klíč se tak zakompiluje přímo do `.prg` při
-     buildu, nikdy neprochází gitem ani Garmin Connect. Bez `Secret.mc` build selže
-     (undefined symbol) - to je záměr pro čistě osobní/nedistribuovaný build.
-   - Po nasazení ověř v simulátoru `monkeydo … /t` (test `testDecryptVector`) a na
-     hodinkách, že widget neukazuje „Chybí krypto” ani „Špatný klíč”.
+- **`garmin-widget/manifest.xml`** – `id` je teď náhodně vygenerované GUID
+  (funkční pro simulátor/lokální testy). Pro reálné publikování do Connect
+  IQ Store by sis ho měl přegenerovat přes VS Code wizard ("Garmin: Create
+  New Project" → nahradit vygenerovaný `manifest.xml`/`source/` obsahem
+  z tohoto repa).
+- **Sentry DSN** (monitoring fáze 1, viz „Sentry monitoring" níže) – kód je
+  hotový, ale bez DSN je `SentrySdk.Init` no-op. Založ projekt v Sentry
+  (platforma C#/.NET) a DSN ulož na tři místa stejně jako AES klíč:
+  - Windows: `New-StoredCredential -Target SOL-Sentry-DSN -UserName sentry -Password <dsn> -Persist LocalMachine`
+  - GitHub: Settings → Secrets and variables → Actions → `SENTRY_DSN`
+  - Lokální ladění mimo Task Scheduler: `$env:SENTRY_DSN = "<dsn>"` před `dotnet run`.
 
-1. **Windows Task Scheduler úloha** na tomhle PC (Victus 15) - trigger
-   Po-Pá 7:00-14:00 opakovaně každých 30 min, akce = spustit
-   `scripts/run-scraper-and-publish.ps1`, zaškrtnuté "Wake the computer
-   to run this task". Nejde nastavit vzdáleně, musí se udělat na místě
-   v Task Scheduleru.
-2. **`garmin-widget/manifest.xml`** – `id` je teď náhodně vygenerované GUID
-   (funkční pro simulátor/lokální testy). Pro reálné publikování do Connect
-   IQ Store by sis ho měl přegenerovat přes VS Code wizard ("Garmin: Create
-   New Project" → nahradit vygenerovaný `manifest.xml`/`source/` obsahem
-   z tohoto repa).
+AES klíč (Credential Manager `SOL-AES-Key`, GitHub secret `SOL_AES_KEY`,
+`garmin-widget/source/Secret.mc`) i Windows Task Scheduler úloha
+`SOL-Rozvrh-Scraper` jsou hotové a ověřené, viz „Klíčová rozhodnutí" a
+„Zabezpečení" níže. Po jakékoli změně klíče ověř v simulátoru `monkeydo … /t`
+(test `testDecryptVector`) a na hodinkách, že widget neukazuje
+„Chybí krypto” ani „Špatný klíč”.
 
 ## Klíčová rozhodnutí (aby ses/Claude Code nemusel ptát znovu)
 
+- **Sentry monitoring** (`scraper/Program.cs`, balíček `Sentry`, viz „Co chybí
+  doplnit" pro DSN): řeší největší slepé místo fáze 2 – celý pipeline běží na
+  jednom domácím PC s wake timerem a bez monitoringu by tiché selhání (PC
+  nevstalo, WSL spadlo, ŠOL změnil layout) zjistíš, až se podíváš na hodinky
+  a uvidíš staré `sync`. Dvě věci najednou:
+  - `SentrySdk.CaptureException` v catch větvích `Program.cs` – skutečné
+    výjimky (login/parse/timeout) se stack trace.
+  - Sentry Crons check-in (monitor slug `sol-scraper`, schedule
+    `*/30 7-13 * * 1-5` Europe/Prague, `CheckInMargin` 5 min, `MaxRuntime`
+    10 min) – "in_progress" na začátku ostrého běhu, "ok"/"error" na konci.
+    Sentry sám pozná i **chybějící** check-in (úloha vůbec neproběhla) a
+    pošle upozornění – to je ten hlavní přínos oproti pouhému logování chyb.
+  - Gatováno na `!offline` (ne `--parse`/ladění) a na neprázdné `SENTRY_DSN` –
+    bez DSN je `SentrySdk.Init` no-op a všechna volání níže taky (bezpečný
+    "disabled hub"), scraper běží úplně stejně jako předtím.
+  - Pokrývá jen fázi 1 (C# scraper), ne `git push` do `gh-pages` v
+    `run-scraper-and-publish.ps1`/`scrape.yml` – ten skoro nikdy neselže a
+    selhání by stejně zůstalo v `run-log.txt`.
 - **GitHub Actions cron NEFUNGUJE a nikdy nebude** – ŠOL je chráněný
   anti-bot službou BotStopper (Techaro), která blokuje headless Chromium
   ještě před zobrazením přihlašovacího formuláře (ukáže "Jejda! Přístup

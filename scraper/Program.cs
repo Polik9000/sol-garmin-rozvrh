@@ -2,7 +2,43 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using Microsoft.Playwright;
+using Sentry;
 using SolScraper;
+
+// Volitelné: bez SENTRY_DSN SentrySdk.Init neběží a všechna CaptureException/CaptureCheckIn
+// volání níže jsou no-op (Sentry SDK je v tomhle stavu bezpečný "disabled hub").
+var sentryDsn = Env("SENTRY_DSN");
+using var sentrySdk = sentryDsn != "" ? SentrySdk.Init(o => { o.Dsn = sentryDsn; }) : null;
+
+// Cron monitoring jen pro ostré běhy (Po-Pá 7:00-13:30, viz Task Scheduler) - offline/--parse
+// je ladění parseru, ne produkční scrape, a nemá smysl ho počítat do "úloha neběží".
+var offlineForMonitor = Array.IndexOf(args, "--parse") is var parseArgIdx && parseArgIdx >= 0 && parseArgIdx + 1 < args.Length;
+const string MonitorSlug = "sol-scraper";
+SentryId? checkInId = null;
+if (!offlineForMonitor && sentryDsn != "")
+{
+    checkInId = SentrySdk.CaptureCheckIn(MonitorSlug, CheckInStatus.InProgress, configureMonitorOptions: o =>
+    {
+        o.Interval("*/30 7-13 * * 1-5");
+        o.TimeZone = "Europe/Prague";
+        o.CheckInMargin = TimeSpan.FromMinutes(5);  // Task Scheduler má wake timer, může se opozdit
+        o.MaxRuntime = TimeSpan.FromMinutes(10);     // shoduje se s ExecutionTimeLimit v Task Scheduleru
+        o.FailureIssueThreshold = 1;
+        o.RecoveryThreshold = 1;
+    });
+}
+
+var exitCode = await RunAsync(args);
+
+if (checkInId != null)
+{
+    SentrySdk.CaptureCheckIn(MonitorSlug, exitCode == ExitCodes.Ok ? CheckInStatus.Ok : CheckInStatus.Error, sentryId: checkInId);
+}
+
+return exitCode;
+
+async Task<int> RunAsync(string[] args)
+{
 
 var jsonOptions = new JsonSerializerOptions
 {
@@ -73,17 +109,21 @@ try
 catch (ScrapeException ex)
 {
     Log.Warn($"{ex.GetType().Name}: {ex.Message}");
+    SentrySdk.CaptureException(ex);
     return ex.ExitCode;
 }
-catch (System.TimeoutException)
+catch (System.TimeoutException ex)
 {
     Log.Warn("Překročen celkový limit běhu (4 min).");
+    SentrySdk.CaptureException(ex);
     return ExitCodes.Transient;
 }
 catch (Exception ex)
 {
     Log.Warn("Neočekávaná chyba: " + ex);
+    SentrySdk.CaptureException(ex);
     return ExitCodes.Transient;
+}
 }
 
 static string Env(string key, string fallback = "") =>
