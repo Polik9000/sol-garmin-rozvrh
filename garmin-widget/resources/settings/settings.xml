@@ -1,0 +1,5 @@
+<settings>
+    <setting propertyKey="@Properties.aesKey" title="@Strings.AesKeyTitle">
+        <settingConfig type="alphaNumeric" />
+    </setting>
+</settings>

@@ -31,6 +31,46 @@ Datový kontrakt mezi fázemi 1 a 3 (JSON pole objektů, bez mezer):
 `s`/`e` = začátek/konec "HH:MM". Řazeno podle (d, s) vzestupně. Jednopísmenné
 klíče záměrně kvůli 64 KB paměťovému limitu widgetu ve fázi 3.
 
+Tohle je jen **vnitřní/ladicí** tvar (`--parse` bez klíče, `--stdout`). Na
+GitHub Pages jde výhradně šifrovaná obálka, viz „Zabezpečení“.
+
+## Zabezpečení (rozvrh je osobní údaj, repo i Pages jsou veřejné)
+
+**AES-128-CBC, dešifruje se přímo v hodinkách.** Obfuskace URL (`rozvrh_<hash>.json`)
+tu nefunguje: větev `gh-pages` je ve veřejném repu, takže název souboru i celá
+historie jsou vidět ve stromu repa na GitHubu.
+
+```
+ŠOL ──Playwright──► scraper (lokálně, WSL)
+                     lessons ─► plaintext "SOL1,<n>\n20260930,M,PCH,0800,0845\n…"
+                     AES-128-CBC(SOL_AES_KEY), IV = HMAC(odvozený klíč, plaintext)[..16]
+                     ─► out/rozvrh.json = {"v":1,"iv":"<b64>","c":"<b64>"}
+publish skript ──► kontrola regexem, že jde o obálku ─► gh-pages (1 orphan commit, force push)
+hodinky ──makeWebRequest(JSON)──► Dictionary ─► base64 → ByteArray (StringUtil)
+         ─► Cryptography.Cipher AES128/CBC (nativně) ─► kontrola "SOL1" ─► 5 paralelních polí
+```
+
+- Kryptografie běží nativně (`Toybox.Cryptography`, API 3.0.0, Fenix 5 Plus je
+  CIQ 3.x), Monkey C dělá jen jeden lineární průchod bajty. Plaintext je řádkový
+  formát, ne JSON: Monkey C neumí parsovat JSON z řetězce.
+- Klíč nikdy není v repu: scraper ho čte z `SOL_AES_KEY` (lokálně z Windows Credential
+  Manageru, target `SOL-AES-Key`; v Actions ze secretu `SOL_AES_KEY`). Hodinky ho
+  čtou z nastavení aplikace (property `aesKey`).
+- Bez klíče scraper v ostrém režimu skončí s kódem 64 a nic nezapíše. Publikace
+  navíc odmítne cokoli, co neodpovídá tvaru obálky.
+- Deterministické IV: stejný rozvrh dá bajtově stejný soubor, takže publikace commit
+  přeskočí. Prozradí to jen „změnilo se / nezměnilo se“.
+- MAC tu záměrně není: kdo by mohl podvrhnout obsah, musel by mít push do repa.
+  Chráníme důvěrnost, ne autenticitu.
+- Po přechodu na šifrování dostane `gh-pages` jediný orphan commit (force push).
+  Staré plaintextové commity pak nejsou dosažitelné z žádné větve. GitHub je ale
+  může ještě nějakou dobu vydat podle SHA a mohly je stáhnout forky či mirrory.
+  Úplné odstranění = požádat GitHub Support o vymazání cache (odkaz na repo +
+  informace, že šlo o osobní údaje).
+
+**Klíč:** `openssl rand -hex 16` (nebo `python -c "import secrets;print(secrets.token_hex(16))"`),
+32 hex znaků. Tentýž klíč patří na tři místa: Credential Manager / GitHub secret / hodinky.
+
 ## Co je hotové
 
 - **Fáze 1** (`scraper/`): kompletní a ověřené proti živému ŠOL účtu
@@ -46,6 +86,17 @@ klíče záměrně kvůli 64 KB paměťovému limitu widgetu ve fázi 3.
   zkompilovaný a otestovaný v Connect IQ simulátoru.
 
 ## Co chybí doplnit
+
+0. **AES klíč** (viz „Zabezpečení“):
+   - Windows: `New-StoredCredential -Target SOL-AES-Key -UserName aes -Password <32hex> -Persist LocalMachine`
+   - GitHub: Settings → Secrets and variables → Actions → `SOL_AES_KEY`
+   - Hodinky: Garmin Connect → Zařízení → Aplikace Connect IQ → SOL Rozvrh → Nastavení →
+     „AES klic“. Funguje jen pro aplikaci nainstalovanou ze Storu (stačí soukromá beta).
+     U sideloadu `.prg` Garmin Connect nastavení nenabídne: nastav `aesKey` v simulátoru
+     (editor Application.Properties) a vygenerovaný `.SET` soubor zkopíruj na hodinky do
+     `GARMIN/APPS/SETTINGS/` (název musí odpovídat `.prg`; postup ověř v aktuální verzi SDK).
+   - Po nasazení ověř v simulátoru `monkeydo … /t` (test `testDecryptVector`) a na
+     hodinkách, že widget neukazuje „Chybí krypto“ ani „Špatný klíč“.
 
 1. **Windows Task Scheduler úloha** na tomhle PC (Victus 15) - trigger
    Po-Pá 7:00-14:00 opakovaně každých 30 min, akce = spustit

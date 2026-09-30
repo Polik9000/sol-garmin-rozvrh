@@ -1,0 +1,5 @@
+<properties>
+    <!-- AES-128 klíč jako 32 hex znaků. Výchozí hodnota ZŮSTÁVÁ prázdná - klíč se sem
+         nikdy necommituje, zadává se přes Garmin Connect (nastavení aplikace). -->
+    <property id="aesKey" type="string"></property>
+</properties>

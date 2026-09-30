@@ -1,22 +1,31 @@
 using Toybox.Test;
+using Toybox.StringUtil as SU;
 
-// Offline testy transformace JSON -> vnitřní paralelní pole. Spustit:
+// Offline testy dešifrování a parsování plaintextu -> vnitřní paralelní pole. Spustit:
 // monkeyc -t ... a monkeydo ... /t
-(:test)
-function testCompact(logger) {
-    var store = new LessonStore();
-    var data = [
-        { "d" => 20260929, "n" => "M", "u" => "PCH", "s" => "16:00", "e" => "17:00" },
-        { "d" => 20260929, "n" => "AJ", "u" => "U12", "s" => "17:00", "e" => "17:45" },
-    ];
-    store.compact(data);
 
+// (:debug), ne (:test) - test runner by helper spustil jako test.
+(:debug)
+function toBytes(s) {
+    return SU.convertEncodedString(s, {
+        :fromRepresentation => SU.REPRESENTATION_STRING_PLAIN_TEXT,
+        :toRepresentation => SU.REPRESENTATION_BYTE_ARRAY
+    });
+}
+
+(:test)
+function testLoadPlain(logger) {
+    var store = new LessonStore();
+    if (!store.loadPlain(toBytes("SOL1,2\n20260929,M,PCH,1600,1700\n20260929,AJ,U12,1700,1745\n"))) {
+        logger.debug("loadPlain vrátil false");
+        return false;
+    }
     if (store.entryCount() != 2) {
         logger.debug("entryCount() = " + store.entryCount() + ", čekáno 2");
         return false;
     }
-    if (!store.nameAt(0).equals("M") || !store.roomAt(0).equals("PCH")) {
-        logger.debug("záznam 0: " + store.nameAt(0) + "/" + store.roomAt(0));
+    if (store.dateAt(0) != 20260929 || !store.nameAt(0).equals("M") || !store.roomAt(0).equals("PCH")) {
+        logger.debug("záznam 0: " + store.dateAt(0) + " " + store.nameAt(0) + "/" + store.roomAt(0));
         return false;
     }
     if (store.startAt(0) != 16 * 60 || store.endAt(0) != 17 * 60) {
@@ -31,11 +40,65 @@ function testCompact(logger) {
 }
 
 (:test)
-function testCompactEmpty(logger) {
+function testLoadPlainEmpty(logger) {
     var store = new LessonStore();
-    store.compact([]);
-    if (store.entryCount() != 0) {
-        logger.debug("entryCount() pro prázdná data = " + store.entryCount());
+    if (!store.loadPlain(toBytes("SOL1,0\n")) || store.entryCount() != 0) {
+        logger.debug("prázdný rozvrh neprošel");
+        return false;
+    }
+    return true;
+}
+
+// Šum (= dešifrování špatným klíčem) nesmí přepsat stará data.
+(:test)
+function testLoadPlainRejectsGarbage(logger) {
+    var store = new LessonStore();
+    store.loadPlain(toBytes("SOL1,1\n20260929,M,PCH,1600,1700\n"));
+    if (store.loadPlain(toBytes("xOL1,1\n20260929,M,PCH,1600,1700\n"))) {
+        logger.debug("špatná hlavička prošla");
+        return false;
+    }
+    if (store.loadPlain(toBytes("SOL1,2\n20260929,M,PCH,1600,1700\n"))) {
+        logger.debug("useknutý záznam prošel");
+        return false;
+    }
+    if (store.entryCount() != 1 || !store.nameAt(0).equals("M")) {
+        logger.debug("neúspěšný parse přepsal stará data");
+        return false;
+    }
+    return true;
+}
+
+// Vektor vygenerovaný stejným algoritmem jako scraper/PayloadCrypto.cs (klíč 000102..0f je
+// veřejný testovací, ne produkční). Ověřuje nativní AES-CBC, base64, UTF-8 ("Čj") i prázdnou učebnu.
+(:test)
+function testDecryptVector(logger) {
+    if (!PayloadCipher.isSupported()) {
+        logger.debug("Toybox.Cryptography na tomto zařízení chybí");
+        return false;
+    }
+    var key = SU.convertEncodedString("000102030405060708090a0b0c0d0e0f", {
+        :fromRepresentation => SU.REPRESENTATION_STRING_HEX,
+        :toRepresentation => SU.REPRESENTATION_BYTE_ARRAY
+    });
+    var envelope = {
+        "v" => 1,
+        "iv" => "YSEKm7Foqu46Zc1vlRPdbA==",
+        "c" => "XnGF1NRUZd4xKHjSojIIsEXe1vjp51f/bZWdFF8gxCY8jT0XGAwYRdSkrcvm6CuSVV4rReKO8PlW13+vuYbtwyNHZJ9cyMgY/jeHHaEn9zbXsT4bGmKvvr1wfW7zKBBA"
+    };
+    var plain = PayloadCipher.decrypt(envelope, key);
+    if (plain == null) {
+        logger.debug("decrypt vrátil null");
+        return false;
+    }
+    var store = new LessonStore();
+    if (!store.loadPlain(plain) || store.entryCount() != 3) {
+        logger.debug("dešifrovaný plaintext neprošel parserem");
+        return false;
+    }
+    if (!store.nameAt(0).equals("Bicv") || !store.nameAt(1).equals("Čj") || !store.roomAt(1).equals("")
+            || store.dateAt(2) != 20261001 || store.startAt(2) != 16 * 60) {
+        logger.debug("obsah: " + store.nameAt(0) + "," + store.nameAt(1) + "," + store.roomAt(1) + "," + store.dateAt(2));
         return false;
     }
     return true;
@@ -44,12 +107,7 @@ function testCompactEmpty(logger) {
 (:test)
 function testPairedIndex(logger) {
     var store = new LessonStore();
-    var data = [
-        { "d" => 20260930, "n" => "Bicv", "u" => "LBi", "s" => "08:00", "e" => "09:35" },
-        { "d" => 20260930, "n" => "Fcv", "u" => "LF", "s" => "08:00", "e" => "09:35" },
-        { "d" => 20260930, "n" => "D", "u" => "6.C", "s" => "09:45", "e" => "10:30" },
-    ];
-    store.compact(data);
+    store.loadPlain(toBytes("SOL1,3\n20260930,Bicv,LBi,0800,0935\n20260930,Fcv,LF,0800,0935\n20260930,D,6.C,0945,1030\n"));
 
     if (store.pairedIndex(0) != 1 || store.pairedIndex(1) != 0) {
         logger.debug("pairedIndex pro souběžnou dvojici selhalo: " + store.pairedIndex(0) + "/" + store.pairedIndex(1));

@@ -1,10 +1,12 @@
 using Toybox.Communications as Comm;
 using Toybox.Application.Storage as Store;
+using Toybox.Lang as Lang;
+using Toybox.StringUtil as SU;
 using Toybox.WatchUi as Ui;
 using Toybox.Time as Time;
 using Toybox.Time.Gregorian as Gregorian;
 
-// UPRAV na skutečný endpoint z fáze 2:
+// Obsah je AES-128-CBC obálka {"v":1,"iv":b64,"c":b64} - veřejná URL nevadí (viz README "Zabezpečení").
 const ROZVRH_URL = "https://polik9000.github.io/sol-garmin-rozvrh/rozvrh.json";
 // ŠOL se scrapuje po 30 min (fáze 2) - častější dotazy jen plýtvají baterií a daty.
 const CACHE_TTL_SEC = 600;
@@ -17,7 +19,7 @@ class LessonStore {
     var _starts;
     var _ends;
     var _lastFetch;
-    var _status; // "loading" | "ok" | "no_phone" | "error"
+    var _status; // "loading" | "ok" | "no_phone" | "error" | "no_key" | "bad_key" | "no_crypto"
 
     function initialize() {
         _dates = [];
@@ -64,6 +66,11 @@ class LessonStore {
     }
 
     function fetch() {
+        if (PayloadCipher.keyFromSettings() == null) {
+            _status = "no_key"; // nemá smysl tahat data, která neumíme přečíst
+            Ui.requestUpdate();
+            return;
+        }
         var options = {
             :method => Comm.HTTP_REQUEST_METHOD_GET,
             :responseType => Comm.HTTP_RESPONSE_CONTENT_TYPE_JSON
@@ -72,11 +79,12 @@ class LessonStore {
     }
 
     function onReceive(responseCode, data) {
-        if (responseCode == 200 && data != null) {
-            compact(data);
-            _lastFetch = Time.now().value();
-            _status = "ok";
-            saveToStorage();
+        if (responseCode == 200 && data instanceof Lang.Dictionary) {
+            _status = decryptAndLoad(data);
+            if (_status.equals("ok")) {
+                _lastFetch = Time.now().value();
+                saveToStorage();
+            }
         } else if (responseCode == -104) {
             _status = "no_phone"; // BLE_CONNECTION_UNAVAILABLE - telefon není po ruce
         } else {
@@ -85,33 +93,101 @@ class LessonStore {
         Ui.requestUpdate();
     }
 
-    // Array<Dictionary> -> 5 paralelních polí primitiv. "data" je jen lokální
-    // parametr téhle funkce, po návratu ho GC může uvolnit - nikde se neuchovává.
-    function compact(data) {
-        var n = data.size();
+    // Obálka -> ByteArray plaintextu -> paralelní pole. "data" i mezivýsledky jsou lokální,
+    // po návratu je GC uvolní. Při jakémkoli selhání zůstávají stará data nedotčená.
+    function decryptAndLoad(envelope) {
+        if (!PayloadCipher.isSupported()) {
+            return "no_crypto";
+        }
+        var key = PayloadCipher.keyFromSettings();
+        if (key == null) {
+            return "no_key";
+        }
+        var plain = PayloadCipher.decrypt(envelope, key);
+        if (plain == null || !loadPlain(plain)) {
+            return "bad_key"; // špatný klíč dá šum -> neprojde kontrolou hlavičky "SOL1"
+        }
+        return "ok";
+    }
+
+    // Formát (viz scraper/PayloadCrypto.cs): "SOL1,<n>\n" + n× "yyyyMMdd,předmět,učebna,HHMM,HHMM\n".
+    // Jeden lineární průchod nad ByteArray, žádný String.find/substring na celém textu.
+    // Konec se řídí počtem záznamů, ne délkou - PKCS7 padding za posledním řádkem se ignoruje.
+    function loadPlain(b) {
+        var len = b.size();
+        // 'S','O','L','1',','
+        if (len < 7 || b[0] != 83 || b[1] != 79 || b[2] != 76 || b[3] != 49 || b[4] != 44) {
+            return false;
+        }
+        var end = scanTo(b, 5, 10);
+        if (end < 0) { return false; }
+        var n = parseNum(b, 5, end);
+        if (n < 0) { return false; }
+        var pos = end + 1;
+
         var d = new [n];
         var nm = new [n];
         var rm = new [n];
         var st = new [n];
         var en = new [n];
         for (var i = 0; i < n; i += 1) {
-            var item = data[i];
-            d[i] = item["d"];
-            nm[i] = item["n"];
-            rm[i] = item["u"];
-            st[i] = parseTime(item["s"]);
-            en[i] = parseTime(item["e"]);
+            var e0 = scanTo(b, pos, 44);
+            if (e0 < 0) { return false; }
+            var e1 = scanTo(b, e0 + 1, 44);
+            if (e1 < 0) { return false; }
+            var e2 = scanTo(b, e1 + 1, 44);
+            if (e2 < 0) { return false; }
+            var e3 = scanTo(b, e2 + 1, 44);
+            if (e3 < 0) { return false; }
+            var e4 = scanTo(b, e3 + 1, 10);
+            if (e4 < 0) { return false; }
+
+            var s = parseNum(b, e2 + 1, e3);
+            var e = parseNum(b, e3 + 1, e4);
+            d[i] = parseNum(b, pos, e0);
+            if (d[i] < 0 || s < 0 || e < 0) { return false; }
+            nm[i] = bytesToString(b, e0 + 1, e1);
+            rm[i] = bytesToString(b, e1 + 1, e2);
+            st[i] = (s / 100) * 60 + s % 100; // HHMM -> minuty od půlnoci
+            en[i] = (e / 100) * 60 + e % 100;
+            pos = e4 + 1;
         }
         _dates = d;
         _names = nm;
         _rooms = rm;
         _starts = st;
         _ends = en;
+        return true;
     }
 
-    // "08:50" -> 530 (minuty od půlnoci) - levnější na porovnání i na uložení než string
-    function parseTime(hhmm) {
-        return hhmm.substring(0, 2).toNumber() * 60 + hhmm.substring(3, 5).toNumber();
+    // Index prvního výskytu bajtu "ch" od "from", nebo -1.
+    function scanTo(b, from, ch) {
+        var len = b.size();
+        for (var i = from; i < len; i += 1) {
+            if (b[i] == ch) { return i; }
+        }
+        return -1;
+    }
+
+    // Dekadické číslo z bajtů [from, to). -1 pro prázdný úsek nebo ne-číslici.
+    function parseNum(b, from, to) {
+        if (to <= from) { return -1; }
+        var v = 0;
+        for (var i = from; i < to; i += 1) {
+            var c = b[i] - 48;
+            if (c < 0 || c > 9) { return -1; }
+            v = v * 10 + c;
+        }
+        return v;
+    }
+
+    function bytesToString(b, from, to) {
+        if (to <= from) { return ""; }
+        return SU.convertEncodedString(b.slice(from, to), {
+            :fromRepresentation => SU.REPRESENTATION_BYTE_ARRAY,
+            :toRepresentation => SU.REPRESENTATION_STRING_PLAIN_TEXT,
+            :encoding => SU.CHAR_ENCODING_UTF8
+        });
     }
 
     // Sledy jsou seřazené (d, s) vzestupně už z fáze 1 -> jeden lineární průchod stačí.

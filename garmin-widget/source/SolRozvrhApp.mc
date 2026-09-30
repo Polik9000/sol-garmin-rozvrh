@@ -7,8 +7,17 @@ class SolRozvrhApp extends App.AppBase {
         AppBase.initialize();
     }
 
+    var _view;
+
     function getInitialView() {
-        var view = new SolRozvrhView();
-        return [ view, new SolRozvrhDelegate(view) ];
+        _view = new SolRozvrhView();
+        return [ _view, new SolRozvrhDelegate(_view) ];
+    }
+
+    // Nový AES klíč z Garmin Connect -> hned zkusit stáhnout, ne čekat na TTL cache.
+    function onSettingsChanged() {
+        if (_view != null) {
+            _view.forceRefresh();
+        }
     }
 }
