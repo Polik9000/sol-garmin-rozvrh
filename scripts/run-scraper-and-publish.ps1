@@ -25,6 +25,18 @@ function ToWslPath([string]$windowsPath) {
 
 Log "=== start ==="
 
+# Bez tohohle by zmeny z jineho zarizeni/Claude session (git push odjinud) nikdy nedosly
+# do skutecneho behu - WSL ma vlastni kopii zdrojaku scraperu (nativni FS kvuli
+# vykonu/spolehlivosti dotnet+Playwright), git pull sam o sobe ji neaktualizuje.
+Set-Location $RepoRoot
+git pull --ff-only origin main 2>&1 | Out-File -Append -FilePath $LogFile -Encoding utf8
+if ($LASTEXITCODE -ne 0) {
+    Log "VAROVANI: git pull selhal nebo neni fast-forward, pouziva se soucasny stav repa."
+}
+$scraperWsl = ToWslPath (Join-Path $RepoRoot "scraper")
+wsl -d Ubuntu -u tobia -- bash -c "cp $scraperWsl/*.cs $scraperWsl/*.csproj $WslProject/" 2>&1 |
+    Out-File -Append -FilePath $LogFile -Encoding utf8
+
 Import-Module CredentialManager
 $cred = Get-StoredCredential -Target "SOL-Scraper"
 if (-not $cred) {
