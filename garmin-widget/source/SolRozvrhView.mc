@@ -44,7 +44,8 @@ class SolRozvrhView extends Ui.View {
     }
 
     function onUpdate(dc) {
-        dc.setColor(Gfx.COLOR_BLACK, Gfx.COLOR_WHITE);
+        // Tmavý režim - hodinky mají tmavé UI všude jinde.
+        dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_BLACK);
         dc.clear();
 
         var cx = dc.getWidth() / 2;
@@ -59,15 +60,23 @@ class SolRozvrhView extends Ui.View {
         var idx = _store.currentAndNext();
         var cur = idx[0];
         var nxt = idx[1];
+        var today = idx[2];
+        var dow = idx[4];
 
         dc.drawText(cx, cy - 85, Gfx.FONT_TINY, "NYNÍ", Gfx.TEXT_JUSTIFY_CENTER);
         if (cur == -1) {
-            dc.drawText(cx, cy - 60, Gfx.FONT_MEDIUM, "volno", Gfx.TEXT_JUSTIFY_CENTER);
+            var free = freeTimeState(nxt, today, dow);
+            dc.drawText(cx, cy - 60, Gfx.FONT_MEDIUM, free[0], Gfx.TEXT_JUSTIFY_CENTER);
+            if (free[1] != null) {
+                dc.drawText(cx, cy - 34, Gfx.FONT_TINY, free[1], Gfx.TEXT_JUSTIFY_CENTER);
+            }
         } else {
             dc.drawText(cx, cy - 63, Gfx.FONT_MEDIUM,
                 _store.combinedName(cur) + "  " + _store.combinedRoom(cur), Gfx.TEXT_JUSTIFY_CENTER);
+            var endIn = _store.minutesUntil(_store.dateAt(cur), _store.endAt(cur));
             dc.drawText(cx, cy - 34, Gfx.FONT_TINY,
-                minutesToHHMM(_store.startAt(cur)) + "-" + minutesToHHMM(_store.endAt(cur)),
+                minutesToHHMM(_store.startAt(cur)) + "-" + minutesToHHMM(_store.endAt(cur))
+                    + " (za " + formatDuration(endIn) + ")",
                 Gfx.TEXT_JUSTIFY_CENTER);
         }
 
@@ -79,12 +88,26 @@ class SolRozvrhView extends Ui.View {
         } else {
             dc.drawText(cx, cy + 20, Gfx.FONT_MEDIUM,
                 _store.combinedName(nxt) + "  " + _store.combinedRoom(nxt), Gfx.TEXT_JUSTIFY_CENTER);
-            dc.drawText(cx, cy + 48, Gfx.FONT_TINY, minutesToHHMM(_store.startAt(nxt)),
+            var startIn = _store.minutesUntil(_store.dateAt(nxt), _store.startAt(nxt));
+            dc.drawText(cx, cy + 48, Gfx.FONT_TINY,
+                minutesToHHMM(_store.startAt(nxt)) + " (za " + formatDuration(startIn) + ")",
                 Gfx.TEXT_JUSTIFY_CENTER);
         }
 
         dc.drawText(cx, cy + 70, Gfx.FONT_XTINY, syncStatusText(),
             Gfx.TEXT_JUSTIFY_CENTER);
+    }
+
+    // Náhrada za "volno": [popisek, detail-nebo-null]. dow: 1=neděle, 7=sobota (Garmin konvence).
+    function freeTimeState(nxt, today, dow) {
+        if (dow == 1 || dow == 7) {
+            return ["víkend", null];
+        }
+        if (nxt != -1 && _store.dateAt(nxt) == today) {
+            var inMin = _store.minutesUntil(today, _store.startAt(nxt));
+            return ["přestávka", "za " + formatDuration(inMin)];
+        }
+        return ["konec školy", null];
     }
 
     function firstRunMessage() {
@@ -114,7 +137,7 @@ class SolRozvrhView extends Ui.View {
         var age = "";
         if (last != null) {
             var ageMin = (Time.now().value() - last) / 60;
-            age = (ageMin < 1) ? "teď" : (ageMin.toString() + " min");
+            age = formatDuration(ageMin);
         }
         if (status.equals("no_phone")) {
             if (last != null) { return "bez tel. (" + age + ")"; }
@@ -140,6 +163,18 @@ class SolRozvrhView extends Ui.View {
         if (status.equals("bad_key")) { return "Špatný klíč"; }
         if (status.equals("no_crypto")) { return "Chybí krypto"; }
         return null;
+    }
+
+    // Kompaktní doba trvání: "Xd Yh" / "Xh Ym" / "Xm" / "teď" - vždy jen dvě nejvyšší
+    // jednotky, jinak se text na kulatém displeji nevejde (viz komentář u syncStatusText).
+    function formatDuration(totalMin) {
+        if (totalMin < 1) { return "teď"; }
+        var days = totalMin / 1440;
+        var hours = (totalMin % 1440) / 60;
+        var mins = totalMin % 60;
+        if (days > 0) { return days.toString() + "d " + hours.toString() + "h"; }
+        if (hours > 0) { return hours.toString() + "h " + mins.toString() + "m"; }
+        return mins.toString() + "m";
     }
 
     function minutesToHHMM(m) {

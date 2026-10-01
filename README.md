@@ -6,21 +6,36 @@ Garmin Fenix 5 Plus. Tenhle soubor je určený jako startovní kontext pro
 Claude Code (nebo pro tebe za pár týdnů) – shrnuje, co je hotové, proč je
 to napsané zrovna takhle, a co ještě chybí dodělat.
 
+## Stav projektu: dokončeno
+
+Funkčně hotovo a nasazené, žádný další vývoj se neplánuje. Jediné známé
+omezení je nespolehlivé probouzení notebooku ze spánku (viz „Windows
+Modern Standby" níže) – akceptované, ne otevřený úkol. Drobné budoucí
+zásahy (rotace AES klíče, oprava parseru při změně layoutu ŠOL) zvládne
+tenhle README + kód bez dalšího plánování.
+
 ## Architektura (3 fáze)
 
 ```
 scraper/            fáze 1 - C# + Playwright, přihlásí se do ŠOL,
-                     scrapuje KZK001_KalendarTyden.aspx, vyplivne
-                     out/rozvrh.json
+                     scrapuje KZK001_KalendarTyden.aspx pro aktuální i
+                     následující týden (klik na den v mini-kalendáři,
+                     viz SolSession.FetchNextWeekHtmlAsync), spojí a
+                     vyplivne out/rozvrh.json
 scripts/            fáze 2 - lokální publikace (viz "Klíčová rozhodnutí" -
                      GitHub Actions NEFUNGUJE, ŠOL blokuje datacenter/headless).
                      scripts/run-scraper-and-publish.ps1 + Windows Task
                      Scheduler s wake timerem (Po-Pá 7:00-14:00) na
-                     domácím PC, přes WSL Ubuntu.
+                     domácím PC, přes WSL Ubuntu. Wake timer je nespolehlivý
+                     (viz "Windows Modern Standby" níže) - akceptované.
 .github/workflows/  scrape.yml zůstává jen jako referenční/manuální build
                      check - jeho cron už NEBĚŽÍ (viz níže).
-garmin-widget/       fáze 3 - Monkey C widget pro Fenix 5 Plus, stahuje
-                     JSON z GitHub Pages, ukazuje aktuální + další hodinu
+garmin-widget/       fáze 3 - Monkey C widget pro Fenix 5 Plus (tmavý
+                     režim), stahuje JSON z GitHub Pages, ukazuje
+                     aktuální + další hodinu s countdownem do konce/
+                     začátku, mimo výuku "přestávka"/"konec školy"/
+                     "víkend". START otevře scrollovatelný rozvrh na
+                     oba stažené týdny.
 ```
 
 Datový kontrakt mezi fázemi 1 a 3 (JSON pole objektů, bez mezer):
@@ -75,15 +90,22 @@ hodinky ──makeWebRequest(JSON)──► Dictionary ─► base64 → ByteArr
 
 - **Fáze 1** (`scraper/`): kompletní a ověřené proti živému ŠOL účtu
   (offline test: `dotnet run -- --parse fixtures/rozvrh.html --stdout`).
+  Stahuje aktuální i následující týden a slučuje je (ověřeno živě: 55
+  hodin ze dvou týdnů, ~2 KB payload).
 - **Fáze 2** (`scripts/run-scraper-and-publish.ps1`): lokální publikace
   funguje end-to-end (přihlášení → parse → push do `gh-pages`). Přihlašovací
   údaje jsou ve Windows Credential Manageru (target `SOL-Scraper`), ne v
   souboru. `.github/workflows/scrape.yml` **NEPOUŽÍVÁME** pro ostrý provoz -
   viz "Klíčová rozhodnutí" proč. Windows Task Scheduler úloha
   `SOL-Rozvrh-Scraper` je zaregistrovaná (Po-Pá 7:00-14:00, každých 30 min,
-  wake timer) a běží.
-- **Fáze 3** (`garmin-widget/`): kompletní zdrojový kód widgetu,
-  zkompilovaný a otestovaný v Connect IQ simulátoru.
+  wake timer) a běží - samotný wake timer je ale nespolehlivý, viz
+  "Windows Modern Standby" níže.
+- **Fáze 3** (`garmin-widget/`): kompletní zdrojový kód widgetu, tmavý
+  režim, countdown do konce/začátku hodiny, mimo výuku "přestávka" (s
+  countdownem)/"konec školy"/"víkend" místo prostého "volno". Zkompilováno
+  (`monkeyc -l 0`, `BUILD SUCCESSFUL`) a ověřeno proti živým datům.
+- **Sentry monitoring** (`scraper/Program.cs`): DSN nastavený v Credential
+  Manageru (`SOL-Sentry-DSN`), scraper posílá cron check-in i výjimky.
 
 ## Co chybí doplnit
 
@@ -92,24 +114,56 @@ hodinky ──makeWebRequest(JSON)──► Dictionary ─► base64 → ByteArr
   IQ Store by sis ho měl přegenerovat přes VS Code wizard ("Garmin: Create
   New Project" → nahradit vygenerovaný `manifest.xml`/`source/` obsahem
   z tohoto repa).
-- **Sentry DSN** (monitoring fáze 1, viz „Sentry monitoring" níže) – kód je
-  hotový, ale bez DSN je `SentrySdk.Init` no-op. Založ projekt v Sentry
-  (platforma C#/.NET) a DSN ulož na tři místa stejně jako AES klíč:
-  - Windows: `New-StoredCredential -Target SOL-Sentry-DSN -UserName sentry -Password <dsn> -Persist LocalMachine`
-  - GitHub: Settings → Secrets and variables → Actions → `SENTRY_DSN`
-  - Lokální ladění mimo Task Scheduler: `$env:SENTRY_DSN = "<dsn>"` před `dotnet run`.
 
 AES klíč (Credential Manager `SOL-AES-Key`, GitHub secret `SOL_AES_KEY`,
-`garmin-widget/source/Secret.mc`) i Windows Task Scheduler úloha
-`SOL-Rozvrh-Scraper` jsou hotové a ověřené, viz „Klíčová rozhodnutí" a
-„Zabezpečení" níže. Po jakékoli změně klíče ověř v simulátoru `monkeydo … /t`
-(test `testDecryptVector`) a na hodinkách, že widget neukazuje
-„Chybí krypto” ani „Špatný klíč”.
+`garmin-widget/source/Secret.mc`), Sentry DSN (`SOL-Sentry-DSN`) i Windows
+Task Scheduler úloha `SOL-Rozvrh-Scraper` jsou hotové a ověřené, viz
+„Klíčová rozhodnutí" a „Zabezpečení" níže. Po jakékoli změně klíče ověř
+v simulátoru `monkeydo … /t` (test `testDecryptVector`) a na hodinkách, že
+widget neukazuje „Chybí krypto” ani „Špatný klíč”.
+
+### Kompilace widgetu z příkazové řádky
+
+`monkeyc` není v PATH a vyžaduje Javu, kterou tenhle stroj taky nemá v
+PATH (je svázaná s Android Studiem). Developer key je v
+`C:\Users\<user>\ConnectIQ-SDKManager\keys\developer_key.der`.
+
+```
+export PATH="/c/Program Files/Android/openjdk/jdk-21.0.8/bin:$PATH"
+SDK=~/AppData/Roaming/Garmin/ConnectIQ/Sdks/<verze>/bin
+"$SDK/monkeyc.bat" -f monkey.jungle -d fenix5plus -o out.prg \
+  -y ~/ConnectIQ-SDKManager/keys/developer_key.der -l 0
+```
+
+Přísnější `-l` (type check level 1-3) hlásí pár chyb v předexistujícím
+kódu (`Storage.getValue()` indexing, `method()` callback typy) - jde o
+známé false-positivy Monkey C type checkeru, projekt se vždy stavěl na
+`-l 0` a běží bez problémů.
 
 ## Klíčová rozhodnutí (aby ses/Claude Code nemusel ptát znovu)
 
-- **Sentry monitoring** (`scraper/Program.cs`, balíček `Sentry`, viz „Co chybí
-  doplnit" pro DSN): řeší největší slepé místo fáze 2 – celý pipeline běží na
+- **Windows Modern Standby (S0ix) wake timer je nespolehlivý a NEŘEŠÍME to
+  dál** – notebook (HP Victus 15, gaming řada) občas celé ráno prospí přes
+  celé okno 7:00-14:00 bez jediného probuzení (ověřeno z `Kernel-Power`
+  event logu: 14,5 h v kuse bez probuzení, `powercfg /lastwake` ukázal
+  `Wake Source Count: 0` u probuzení, které bylo ve skutečnosti ruční).
+  Vyšetřené a zavržené cesty, nezkoušet znovu:
+  - Registry trik `PlatformAoAcOverride` (vynucení klasického S3 spánku) –
+    `powercfg /a` potvrzuje, že firmware S1/S2/S3 vůbec nepodporuje, trik
+    nemá co přepnout.
+  - BIOS "Power On by RTC Alarm" – gaming notebooky HP (na rozdíl od
+    EliteBook/ProBook) tuhle funkci typicky nemají; žádná HP utilita
+    (OMEN Gaming Hub apod.) na stroji plánované zapínání nenabízí.
+  - Přesun scraperu na druhý (Debian) počítač – blokují dva nezávislé
+    problémy: chybí přihlášení (vyžaduje reinstall) a nejisté, jestli
+    headed Chromium bez fyzického monitoru (Xvfb) neprojde stejně jako
+    headless přes BotStopper (fáze 1 detekuje headless fingerprint, ne
+    jen IP - viz "GitHub Actions cron" níže).
+  - Zůstává: `StartWhenAvailable` na úloze dožene zmeškaný běh, jakmile se
+    notebook probere (i ručně) - funguje jako záchranná síť, jen se
+    zpožděním. Sentry cron monitor (viz níže) upozorní, když se nestihne.
+- **Sentry monitoring** (`scraper/Program.cs`, balíček `Sentry`, DSN hotový
+  viz „Co je hotové"): řeší největší slepé místo fáze 2 – celý pipeline běží na
   jednom domácím PC s wake timerem a bez monitoringu by tiché selhání (PC
   nevstalo, WSL spadlo, ŠOL změnil layout) zjistíš, až se podíváš na hodinky
   a uvidíš staré `sync`. Dvě věci najednou:
@@ -161,9 +215,11 @@ AES klíč (Credential Manager `SOL-AES-Key`, GitHub secret `SOL_AES_KEY`,
 
 ## Pro Claude Code
 
-Otevři tuhle složku jako projekt (`claude` v terminálu, nebo VS Code s
-Claude Code rozšířením) a klidně rovnou pokračuj bodem „Co chybí
-doplnit" výše. Zdrojový kód je záměrně bez typovaných anotací
+Projekt je dokončený (viz „Stav projektu" výše) – nejde o backlog čekající
+na dokončení, jen o referenci pro budoucí drobné zásahy. Než cokoliv
+měnit, projdi hlavně „Klíčová rozhodnutí": pár cest (Modern Standby wake
+timer, GitHub Actions cron) už bylo vyšetřeno a zavrženo, netřeba je
+zkoušet znovu. Zdrojový kód je záměrně bez typovaných anotací
 (`using ... as ...`, ne `import`/`as Type`) kvůli širší kompatibilitě
 napříč verzemi Connect IQ SDK – pokud je nainstalovaná verze jistá,
 klidně na modernější syntaxi přejdi.

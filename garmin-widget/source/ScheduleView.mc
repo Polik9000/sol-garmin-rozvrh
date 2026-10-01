@@ -122,7 +122,7 @@ class ScheduleView extends Ui.View {
     }
 
     function onUpdate(dc) {
-        dc.setColor(Gfx.COLOR_BLACK, Gfx.COLOR_WHITE);
+        dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_BLACK);
         dc.clear();
 
         var w = dc.getWidth();
@@ -174,13 +174,13 @@ class ScheduleView extends Ui.View {
                 var text = minutesToHHMM(_store.startAt(v)) + " "
                     + _store.combinedName(v) + " " + _store.combinedRoom(v);
                 if (v == cur) {
-                    dc.setColor(Gfx.COLOR_BLACK, Gfx.COLOR_TRANSPARENT);
-                    dc.fillRoundedRectangle(12, y, w - 24, rowH, 6);
                     dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT);
-                } else if (_store.dateAt(v) == t && _store.endAt(v) <= nowMin) {
-                    dc.setColor(Gfx.COLOR_LT_GRAY, Gfx.COLOR_TRANSPARENT);
-                } else {
+                    dc.fillRoundedRectangle(12, y, w - 24, rowH, 6);
                     dc.setColor(Gfx.COLOR_BLACK, Gfx.COLOR_TRANSPARENT);
+                } else if (_store.dateAt(v) == t && _store.endAt(v) <= nowMin) {
+                    dc.setColor(Gfx.COLOR_DK_GRAY, Gfx.COLOR_TRANSPARENT);
+                } else {
+                    dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT);
                 }
                 dc.drawText(cx, y, Gfx.FONT_SMALL, text, Gfx.TEXT_JUSTIFY_CENTER);
             }
@@ -188,7 +188,7 @@ class ScheduleView extends Ui.View {
         }
 
         // šipky, že je nad/pod čím scrollovat
-        dc.setColor(Gfx.COLOR_DK_GRAY, Gfx.COLOR_TRANSPARENT);
+        dc.setColor(Gfx.COLOR_LT_GRAY, Gfx.COLOR_TRANSPARENT);
         if (_top > 0) {
             dc.fillPolygon([[cx - 6, LIST_TOP - 3], [cx + 6, LIST_TOP - 3], [cx, LIST_TOP - 9]]);
         }

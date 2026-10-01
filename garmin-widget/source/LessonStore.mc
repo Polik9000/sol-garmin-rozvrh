@@ -205,6 +205,7 @@ class LessonStore {
     }
 
     // Sledy jsou seřazené (d, s) vzestupně už z fáze 1 -> jeden lineární průchod stačí.
+    // Vrací [cur, nxt, today, nowMin, day_of_week] - den v týdnu 1=neděle..7=sobota (Garmin konvence).
     function currentAndNext() {
         var g = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var today = g.year * 10000 + g.month * 100 + g.day;
@@ -227,7 +228,20 @@ class LessonStore {
                 nxt = i; // první hodina prvního budoucího dne v cache
             }
         }
-        return [cur, nxt];
+        return [cur, nxt, today, nowMin, g.day_of_week];
+    }
+
+    // Minuty od teď do zadaného data (yyyyMMdd) a minuty od půlnoci - může vyjít i záporně
+    // (v minulosti) nebo přes více dní dopředu (napr. hodina příští týden).
+    function minutesUntil(dateInt, minuteOfDay) {
+        var year = dateInt / 10000;
+        var month = (dateInt / 100) % 100;
+        var day = dateInt % 100;
+        var target = Gregorian.moment({
+            :year => year, :month => month, :day => day,
+            :hour => minuteOfDay / 60, :minute => minuteOfDay % 60, :second => 0
+        });
+        return (target.value() - Time.now().value()) / 60;
     }
 
     function entryCount() { return _dates.size(); }

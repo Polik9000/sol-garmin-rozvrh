@@ -117,6 +117,27 @@ public sealed class SolSession : IAsyncDisposable
         throw new TransientScrapeException($"Rozvrh se nenačetl ani po 3 pokusech, url={PathOnly(_page.Url)}");
     }
 
+    // Volat až PO FetchTimetableHtmlAsync (stránka na KZK001_KalendarTyden.aspx). Minikalendář vlevo
+    // ("Výběr data") má 42 buněk #calendarPart_kalendar_d0..d41 v týdenních řádcích po 7; kliknutí na
+    // den "dnešek + 7" tak přepne hlavní tabulku na stejný den příští týden. Žádný stabilní odkaz/parametr
+    // pro "další týden" na stránce není - ověřeno ručním průzkumem dumpu stránky.
+    public async Task<string?> FetchNextWeekHtmlAsync()
+    {
+        var todayCell = _page.Locator("td.igcal_TodayDay").First;
+        if (await todayCell.CountAsync() == 0) { return null; }
+        var id = await todayCell.GetAttributeAsync("id") ?? "";
+        var m = Regex.Match(id, @"_d(\d+)$");
+        if (!m.Success) { return null; }
+
+        var nextIndex = int.Parse(m.Groups[1].Value) + 7;
+        var nextCell = _page.Locator($"#calendarPart_kalendar_d{nextIndex}");
+        if (await nextCell.CountAsync() == 0) { return null; } // mimo zobrazenou 6týdenní mřížku (vzácné)
+
+        await nextCell.ClickAsync();
+        if (!await WaitForTableAsync(10)) { return null; }
+        return await ReadStableTableHtmlAsync();
+    }
+
     // ---------- čekání na DOM ----------
 
     private async Task<bool> WaitForTableAsync(int seconds)
