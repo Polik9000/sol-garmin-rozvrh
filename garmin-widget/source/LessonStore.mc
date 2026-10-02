@@ -233,15 +233,17 @@ class LessonStore {
 
     // Minuty od teď do zadaného data (yyyyMMdd) a minuty od půlnoci - může vyjít i záporně
     // (v minulosti) nebo přes více dní dopředu (napr. hodina příští týden).
+    // Gregorian.moment() bere vstup jako UTC, ne místní čas -> přímé porovnání s Time.now()
+    // by bylo posunuté o offset časové zóny (v ČR +1/+2 h). Proto se z moment() bere jen
+    // rozdíl dní (oba konce v UTC, offset se vyruší) a minuty se počítají z místního času.
     function minutesUntil(dateInt, minuteOfDay) {
-        var year = dateInt / 10000;
-        var month = (dateInt / 100) % 100;
-        var day = dateInt % 100;
-        var target = Gregorian.moment({
-            :year => year, :month => month, :day => day,
-            :hour => minuteOfDay / 60, :minute => minuteOfDay % 60, :second => 0
+        var g = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+        var todayNoon = Gregorian.moment({ :year => g.year, :month => g.month, :day => g.day, :hour => 12 });
+        var targetNoon = Gregorian.moment({
+            :year => dateInt / 10000, :month => (dateInt / 100) % 100, :day => dateInt % 100, :hour => 12
         });
-        return (target.value() - Time.now().value()) / 60;
+        var days = (targetNoon.value() - todayNoon.value()) / 86400;
+        return days * 1440 + minuteOfDay - (g.hour * 60 + g.min);
     }
 
     function entryCount() { return _dates.size(); }
